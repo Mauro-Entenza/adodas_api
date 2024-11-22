@@ -1,10 +1,7 @@
 package com.example.demo.domain.entity;
 
-import com.example.demo.enumerate.CategoryEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -16,31 +13,36 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "Item")
-@Table(name = "Items")
-public class Item {
+@Entity(name = "Service")
+@Table(name = "Services")
+public class Service {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
+
+  @Column(nullable = false)
+  private String name;
+
   @Column
-  private String brand;
-  @Column
-  private String color;
-  @Enumerated(EnumType.STRING)
-  @Column
-  private CategoryEnum category;
-  @Column
+  private String description;
+
+  @Column(nullable = false)
   private float price;
+
   @Column
-  private boolean isWaterproof;
+  private LocalDate availableFrom;
+
   @Column
-  private LocalDate releaseDate;
+  private LocalDate availableTo;
+
+  @Column
+  private boolean isActive;
+
   @ManyToOne
-  @JoinColumn(name = "order_id", nullable = false)
-  private Order order;
+  @JoinColumn(name = "customer_id", nullable = true)
+  private Customer customer;
 }
