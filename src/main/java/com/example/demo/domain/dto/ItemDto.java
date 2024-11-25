@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ItemDto {
 
-
+  private String id;
   private String brand;
 
   private String color;
