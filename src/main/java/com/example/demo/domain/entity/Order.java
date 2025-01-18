@@ -36,7 +36,7 @@ public class Order {
   private LocalDate orderDate;
   @ManyToOne
   @JoinColumn(name = "customer_id", nullable = false)
-  private Customer customer;
+  private Customer customerId;
   @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-  private List<Item> items;
+  private List<Item> itemIds;
 }

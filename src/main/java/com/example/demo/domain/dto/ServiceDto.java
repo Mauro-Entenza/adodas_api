@@ -29,7 +29,7 @@ public class ServiceDto {
 
   private boolean isActive;
 
-  private Long customerId; // Nullable, if the service is tied to a specific customer
+  private Long customerId;
 
   private String notes;
 }
