@@ -2,12 +2,15 @@ package com.example.demo.service.impl;
 
 import com.example.demo.domain.dto.RefundDto;
 import com.example.demo.domain.entity.Refund;
+import com.example.demo.exception.RefundNotFoundException;
 import com.example.demo.repository.RefundRepository;
 import com.example.demo.service.RefundService;
+import jakarta.persistence.criteria.Predicate;
 import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -31,4 +34,42 @@ public class RefundServiceImpl implements RefundService {
     refund = refundRepository.save(refund);
     return this.modelMapper.map(refund, RefundDto.class);
   }
+
+  @Override
+  public RefundDto modify(long refundId, RefundDto refundDto) throws RefundNotFoundException {
+    this.refundRepository.findById(refundId).orElseThrow(RefundNotFoundException::new);
+    return this.addRefund(refundDto);
+  }
+
+  @Override
+  public void deleteRefund(long refundId) throws RefundNotFoundException {
+    this.refundRepository.findById(refundId).orElseThrow(RefundNotFoundException::new);
+    this.refundRepository.deleteById(refundId);
+  }
+
+  @Override
+  public List<RefundDto> searchRefunds(String reason, Float minAmount, Boolean isApproved) {
+    Specification<Refund> specification = (root, query, criteriaBuilder) -> {
+      Predicate predicate = criteriaBuilder.conjunction();
+      if (reason != null && !reason.isEmpty()) {
+        predicate = criteriaBuilder.and(predicate,
+            criteriaBuilder.like(root.get("reason"), "%" + reason + "%"));
+      }
+      if (minAmount != null) {
+        predicate = criteriaBuilder.and(predicate,
+            criteriaBuilder.greaterThanOrEqualTo(root.get("amount"), minAmount));
+      }
+      if (isApproved != null) {
+        predicate = criteriaBuilder.and(predicate,
+            criteriaBuilder.equal(root.get("isApproved"), isApproved));
+      }
+
+      return predicate;
+    };
+
+    return refundRepository.findAll(specification).stream()
+        .map(refund -> modelMapper.map(refund, RefundDto.class))
+        .toList();
+  }
+
 }

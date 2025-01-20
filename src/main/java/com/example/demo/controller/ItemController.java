@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.domain.dto.ErrorResponseDto;
 import com.example.demo.domain.dto.ItemDto;
+import com.example.demo.enumerate.CategoryEnum;
 import com.example.demo.exception.ItemNotFoundException;
 import com.example.demo.service.ItemService;
 import jakarta.validation.Valid;
@@ -11,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -63,4 +66,38 @@ public class ItemController {
     logger.error(exception.getMessage(), exception);
     return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
   }
+
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  public ResponseEntity<ErrorResponseDto> handleValidationException(
+      MethodArgumentNotValidException exception) {
+    List<String> errorMessages = exception.getBindingResult()
+        .getFieldErrors()
+        .stream()
+        .map(error -> error.getField() + ": " + error.getDefaultMessage())
+        .toList();
+
+    ErrorResponseDto error = new ErrorResponseDto(400, "Validation Failed", errorMessages);
+    logger.error("Validation error: {}", errorMessages);
+    return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+  }
+
+  @GetMapping("/items/search")
+  public ResponseEntity<List<ItemDto>> getItemsByFilter(
+      @RequestParam(value = "brand", required = false) String brand,
+      @RequestParam(value = "category", required = false) CategoryEnum category,
+      @RequestParam(value = "price", required = false) Float price) {
+
+    List<ItemDto> items = itemService.getItemsByFilter(brand, category, price);
+    return new ResponseEntity<>(items, HttpStatus.OK);
+  }
+
+  @ExceptionHandler(Exception.class)
+  public ResponseEntity<ErrorResponseDto> handleUnexpectedException(Exception exception) {
+    ErrorResponseDto error = new ErrorResponseDto(500, "An unexpected error occurred",
+        List.of(exception.getMessage()));
+    logger.error("Unexpected error: {}", exception.getMessage(), exception);
+
+    return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+  }
+
 }

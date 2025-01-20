@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.domain.dto.ItemDto;
+import com.example.demo.enumerate.CategoryEnum;
 import com.example.demo.exception.ItemNotFoundException;
 import java.util.List;
 
@@ -13,4 +14,7 @@ public interface ItemService {
   ItemDto modify(long itemID, ItemDto itemDto) throws ItemNotFoundException;
 
   void deleteItem(long itemId) throws ItemNotFoundException;
+
+  List<ItemDto> getItemsByFilter(String brand, CategoryEnum category,
+      Float price);
 }
