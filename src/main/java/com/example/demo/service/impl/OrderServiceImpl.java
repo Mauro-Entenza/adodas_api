@@ -57,11 +57,9 @@ public class OrderServiceImpl implements OrderService {
 
       return orderDto;
     } catch (IllegalArgumentException e) {
-
       throw new IllegalStateException("Error while mapping or saving the order: " + e.getMessage(),
           e);
     } catch (Exception e) {
-
       throw new IllegalStateException("Unexpected error while adding the order: " + e.getMessage(),
           e);
     }
