@@ -1,24 +1,38 @@
-# adodas_api - Proyecto de Gestión de Servicios y Pedidos
+Adodas API
+Adodas API es una aplicación Spring Boot para gestionar servicios, pedidos, clientes, artículos y reembolsos, con operaciones completas de CRUD, filtros dinámicos y validación.
 
-Este proyecto es una aplicación Spring Boot diseñada para gestionar servicios, pedidos, clientes y reembolsos. Proporciona un conjunto completo de operaciones CRUD, búsqueda y filtrado para las diferentes entidades.
+Características principales
+CRUD completo: Items, Customers, Orders, Services y Refunds.
+Búsquedas avanzadas: Filtros dinámicos para cada entidad.
+Gestión de excepciones: Manejo de errores 400, 404 y 500.
+Consultas personalizadas: Operaciones JPQL y SQL nativas.
+Logs: Registro de operaciones y errores.
 
-## 🚀 Características
+Requisitos previos
+Java 17 o superior.
+Maven 3.8 o superior.
+PostgreSQL u otra base de datos compatible.
+Postman para pruebas.
 
-- CRUD completo para entidades: `Customer`, `Order`, `Service`, `Refund`, `Item`.
-- Filtros dinámicos para búsquedas avanzadas.
-- Gestión de relaciones entre entidades.
-- Validaciones y manejo de excepciones.
-- Integración con una base de datos relacional.
 
----
+Configuración
+Clona el repositorio
 
-## 🛠️ Configuración del Entorno
+git clone https://github.com/usuario/adodas_api.git
+cd adodas_api
 
-### 1. **Prerrequisitos**
+Configura la base de datos en application.properties:
+spring.datasource.url=jdbc:postgresql://localhost:5432/adodas_api
+spring.datasource.username=tu_usuario
+spring.datasource.password=tu_contraseña
 
-Asegúrate de tener las siguientes herramientas instaladas:
+Ejecuta la aplicación:
+mvn spring-boot:run
 
-- **Java 17** o superior
-- **Maven 3.8.1** o superior
-- **PostgreSQL** o tu base de datos preferida
-- **Git**
+Principales Endpoints
+CRUD General
+Items: /items, /items/{id}, /items/search
+Customers: /customers, /customers/{id}, /customers/search
+Orders: /orders, /orders/{id}, /orders/search
+Services: /services, /services/{id}, /services/search
+Refunds: /refunds, /refunds/{id}, /refunds/search
