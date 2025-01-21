@@ -37,8 +37,16 @@ public class RefundServiceImpl implements RefundService {
 
   @Override
   public RefundDto modify(long refundId, RefundDto refundDto) throws RefundNotFoundException {
-    this.refundRepository.findById(refundId).orElseThrow(RefundNotFoundException::new);
-    return this.addRefund(refundDto);
+    Refund existingRefund = this.refundRepository.findById(refundId)
+        .orElseThrow(RefundNotFoundException::new);
+    existingRefund.setReason(refundDto.getReason());
+    existingRefund.setRefundDate(refundDto.getRefundDate());
+    existingRefund.setAmount(refundDto.getAmount());
+    existingRefund.setOrderId(refundDto.getOrderId());
+    existingRefund.setCustomerId(refundDto.getCustomerId());
+    existingRefund.setApproved(refundDto.isApproved());
+    existingRefund = refundRepository.save(existingRefund);
+    return this.modelMapper.map(existingRefund, RefundDto.class);
   }
 
   @Override

@@ -37,4 +37,10 @@ public class Refund {
   @ManyToOne
   @JoinColumn(name = "customer_id", nullable = false)
   private Customer customer;
+
+  public void setOrderId(long orderId) {
+  }
+
+  public void setCustomerId(long customerId) {
+  }
 }
