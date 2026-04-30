@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/customers",
+    "bodyPatterns": [
+      {
+        "matchesJsonPath": "$[?(!@.name)]"
+      }
+    ]
+  },
+  "response": {
+    "status": 400,
+    "jsonBody": {
+      "code": 400,
+      "message": "Bad Request",
+      "errors": [
+        "Name is required"
+      ]
+    }
+  }
+}

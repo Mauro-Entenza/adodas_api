@@ -23,24 +23,24 @@ public class Refund {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
-  @Column
+
+  @Column(nullable = false)
   private String reason;
-  @Column
+
+  @Column(nullable = false)
   private LocalDate refundDate;
-  @Column
+
+  @Column(nullable = false)
   private float amount;
-  @Column
+
+  @Column(nullable = false)
   private boolean isApproved;
+
   @ManyToOne
   @JoinColumn(name = "order_id", nullable = false)
   private Order order;
+
   @ManyToOne
   @JoinColumn(name = "customer_id", nullable = false)
   private Customer customer;
-
-  public void setOrderId(long orderId) {
-  }
-
-  public void setCustomerId(long customerId) {
-  }
 }

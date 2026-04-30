@@ -1,0 +1,15 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/items/9999"
+  },
+  "response": {
+    "status": 400,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "message": "Invalid item data"
+    }
+  }
+}

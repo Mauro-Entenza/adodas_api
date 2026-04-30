@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/customers"
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "id": 1,
+      "name": "John",
+      "dni": "12345678A",
+      "surname": "Doe",
+      "email": "john@example.com",
+      "emailConfirmed": true,
+      "registerDate": "2024-01-01"
+    }
+  }
+}

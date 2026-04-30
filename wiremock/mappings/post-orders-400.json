@@ -1,0 +1,15 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/orders/"
+  },
+  "response": {
+    "status": 400,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "message": "Invalid order data"
+    }
+  }
+}

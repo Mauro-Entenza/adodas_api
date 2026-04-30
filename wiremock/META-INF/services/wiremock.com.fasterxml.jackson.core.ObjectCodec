@@ -1,0 +1,2 @@
+wiremock.com.fasterxml.jackson.dataformat.yaml.YAMLMapper
+wiremock.com.fasterxml.jackson.databind.ObjectMapper

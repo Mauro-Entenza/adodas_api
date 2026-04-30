@@ -1,0 +1,33 @@
+2026-01-15 21:05:37,533 INFO o.h.v.i.u.Version {<clinit>} [background-preinit] HV000001: Hibernate Validator 8.0.1.Final
+2026-01-15 21:05:37,573 INFO o.s.b.StartupInfoLogger {logStarting} [main] Starting AdodasApiApplication using Java 21.0.1 with PID 17784 (C:\Users\mauro\Documents\Adodas\adodas_api\target\classes started by mauro in C:\Users\mauro\Documents\Adodas\adodas_api)
+2026-01-15 21:05:37,574 INFO o.s.b.SpringApplication {logStartupProfileInfo} [main] No active profile set, falling back to 1 default profile: "default"
+2026-01-15 21:05:38,246 INFO o.s.d.r.c.RepositoryConfigurationDelegate {registerRepositoriesIn} [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-15 21:05:38,322 INFO o.s.d.r.c.RepositoryConfigurationDelegate {registerRepositoriesIn} [main] Finished Spring Data repository scanning in 68 ms. Found 5 JPA repository interfaces.
+2026-01-15 21:05:38,938 INFO o.s.b.w.e.t.TomcatWebServer {initialize} [main] Tomcat initialized with port 8080 (http)
+2026-01-15 21:05:38,954 INFO o.a.j.l.DirectJDKLog {log} [main] Initializing ProtocolHandler ["http-nio-8080"]
+2026-01-15 21:05:38,957 INFO o.a.j.l.DirectJDKLog {log} [main] Starting service [Tomcat]
+2026-01-15 21:05:38,957 INFO o.a.j.l.DirectJDKLog {log} [main] Starting Servlet engine: [Apache Tomcat/10.1.33]
+2026-01-15 21:05:39,020 INFO o.a.j.l.DirectJDKLog {log} [main] Initializing Spring embedded WebApplicationContext
+2026-01-15 21:05:39,020 INFO o.s.b.w.s.c.ServletWebServerApplicationContext {prepareWebApplicationContext} [main] Root WebApplicationContext: initialization completed in 1409 ms
+2026-01-15 21:05:39,227 INFO o.h.j.i.u.LogHelper {logPersistenceUnitInformation} [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-15 21:05:39,303 INFO o.h.Version {logVersion} [main] HHH000412: Hibernate ORM core version 6.5.3.Final
+2026-01-15 21:05:39,349 INFO o.h.c.i.RegionFactoryInitiator {initiateService} [main] HHH000026: Second-level cache disabled
+2026-01-15 21:05:39,618 INFO o.s.o.j.p.SpringPersistenceUnitInfo {addTransformer} [main] No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-15 21:05:39,645 INFO c.z.h.HikariDataSource {getConnection} [main] HikariPool-1 - Starting...
+2026-01-15 21:05:39,737 INFO c.z.h.p.HikariPool {checkFailFast} [main] HikariPool-1 - Added connection org.mariadb.jdbc.Connection@4e7bc939
+2026-01-15 21:05:39,738 INFO c.z.h.HikariDataSource {getConnection} [main] HikariPool-1 - Start completed.
+2026-01-15 21:05:40,520 INFO o.h.e.t.j.p.i.JtaPlatformInitiator {initiateService} [main] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-01-15 21:05:40,617 INFO o.s.o.j.AbstractEntityManagerFactoryBean {buildNativeEntityManagerFactory} [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-15 21:05:41,282 INFO o.a.j.l.DirectJDKLog {log} [main] Starting ProtocolHandler ["http-nio-8080"]
+2026-01-15 21:05:41,301 INFO o.s.b.w.e.t.TomcatWebServer {start} [main] Tomcat started on port 8080 (http) with context path '/'
+2026-01-15 21:05:41,308 INFO o.s.b.StartupInfoLogger {logStarted} [main] Started AdodasApiApplication in 4.198 seconds (process running for 4.971)
+2026-01-15 21:07:57,772 INFO o.a.j.l.DirectJDKLog {log} [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-15 21:07:57,772 INFO o.s.w.s.FrameworkServlet {initServletBean} [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2026-01-15 21:07:57,773 INFO o.s.w.s.FrameworkServlet {initServletBean} [http-nio-8080-exec-1] Completed initialization in 1 ms
+2026-01-15 21:07:57,955 INFO c.e.d.c.CustomerController {addCustomer} [http-nio-8080-exec-1] BEGIN addCustomer
+2026-01-15 21:07:59,421 INFO c.e.d.c.CustomerController {addCustomer} [http-nio-8080-exec-6] BEGIN addCustomer
+2026-01-15 21:08:00,226 INFO c.e.d.c.CustomerController {addCustomer} [http-nio-8080-exec-3] BEGIN addCustomer
+2026-01-15 21:08:06,937 INFO c.e.d.c.CustomerController {searchCustomers} [http-nio-8080-exec-5] BEGIN searchCustomers - name: Laura, email: null, surname: null
+2026-01-15 21:14:55,223 INFO o.s.o.j.AbstractEntityManagerFactoryBean {destroy} [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-15 21:14:55,226 INFO c.z.h.HikariDataSource {close} [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2026-01-15 21:14:55,229 INFO c.z.h.HikariDataSource {close} [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.

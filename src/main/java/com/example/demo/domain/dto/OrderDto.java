@@ -1,6 +1,6 @@
 package com.example.demo.domain.dto;
 
-import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
@@ -15,17 +15,17 @@ public class OrderDto {
 
   private long id;
 
+  @NotNull(message = "Customer ID is required")
+  private Long customerId;
+
   private String customerNotes;
-  @NotNull
-  @Min(value = 0, message = "The order price must be 0 or higher")
-  private float orderPrice;
+
+  @NotNull(message = "The order price field is required")
+  @DecimalMin(value = "0.0", message = "Order price must be positive")
+  private Float orderPrice;
 
   private boolean isDelivered;
-
-  @NotNull(message = "The order date is required")
   private LocalDate orderDate;
-
-  private long customerId;
 
   private List<Long> itemIds;
 }

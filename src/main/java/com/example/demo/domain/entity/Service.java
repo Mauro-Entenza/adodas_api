@@ -45,4 +45,7 @@ public class Service {
   @ManyToOne
   @JoinColumn(name = "customer_id", nullable = true)
   private Customer customer;
+
+  public void setIsActive(Boolean isActive) {
+  }
 }

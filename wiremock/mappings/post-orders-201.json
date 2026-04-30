@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/orders"
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "id": 2,
+      "customerNotes": "Leave at reception",
+      "orderPrice": 99.99,
+      "isDelivered": false,
+      "orderDate": "2024-06-10"
+    }
+  }
+}

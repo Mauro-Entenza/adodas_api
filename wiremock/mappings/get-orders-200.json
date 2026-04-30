@@ -1,0 +1,50 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/orders"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": [
+      {
+        "id": 1,
+        "customerNotes": "Please deliver after 6 PM",
+        "orderPrice": 195.5,
+        "isDelivered": false,
+        "orderDate": "2024-06-01",
+        "customer": {
+          "id": 1,
+          "name": "John",
+          "dni": "12345678A",
+          "surname": "Doe",
+          "email": "john@example.com",
+          "emailConfirmed": true,
+          "registerDate": "2024-01-01"
+        },
+        "items": [
+          {
+            "id": 1,
+            "brand": "Nike",
+            "color": "Black",
+            "category": "SHOES",
+            "price": 120.5,
+            "isWaterproof": false,
+            "releaseDate": "2024-03-15"
+          },
+          {
+            "id": 2,
+            "brand": "Adidas",
+            "color": "White",
+            "category": "CLOTHING",
+            "price": 75.0,
+            "isWaterproof": false,
+            "releaseDate": "2023-11-10"
+          }
+        ]
+      }
+    ]
+  }
+}

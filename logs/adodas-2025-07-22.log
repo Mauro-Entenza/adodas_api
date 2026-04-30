@@ -1,0 +1,82 @@
+2025-07-22 16:02:12,443 INFO o.h.v.i.u.Version {<clinit>} [background-preinit] HV000001: Hibernate Validator 8.0.1.Final
+2025-07-22 16:02:12,488 INFO o.s.b.StartupInfoLogger {logStarting} [main] Starting AdodasApiApplication using Java 21.0.1 with PID 18704 (C:\Users\mauro\Documents\Adodas\adodas_api\target\classes started by mauro in C:\Users\mauro\Documents\Adodas\adodas_api)
+2025-07-22 16:02:12,489 INFO o.s.b.SpringApplication {logStartupProfileInfo} [main] No active profile set, falling back to 1 default profile: "default"
+2025-07-22 16:02:13,059 INFO o.s.d.r.c.RepositoryConfigurationDelegate {registerRepositoriesIn} [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-07-22 16:02:13,126 INFO o.s.d.r.c.RepositoryConfigurationDelegate {registerRepositoriesIn} [main] Finished Spring Data repository scanning in 60 ms. Found 5 JPA repository interfaces.
+2025-07-22 16:02:13,601 INFO o.s.b.w.e.t.TomcatWebServer {initialize} [main] Tomcat initialized with port 8080 (http)
+2025-07-22 16:02:13,612 INFO o.a.j.l.DirectJDKLog {log} [main] Initializing ProtocolHandler ["http-nio-8080"]
+2025-07-22 16:02:13,614 INFO o.a.j.l.DirectJDKLog {log} [main] Starting service [Tomcat]
+2025-07-22 16:02:13,614 INFO o.a.j.l.DirectJDKLog {log} [main] Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-07-22 16:02:13,662 INFO o.a.j.l.DirectJDKLog {log} [main] Initializing Spring embedded WebApplicationContext
+2025-07-22 16:02:13,663 INFO o.s.b.w.s.c.ServletWebServerApplicationContext {prepareWebApplicationContext} [main] Root WebApplicationContext: initialization completed in 1137 ms
+2025-07-22 16:02:13,687 INFO c.z.h.HikariDataSource {getConnection} [main] HikariPool-1 - Starting...
+2025-07-22 16:02:13,896 INFO c.z.h.p.HikariPool {checkFailFast} [main] HikariPool-1 - Added connection conn0: url=jdbc:h2:file:~/adodas.db user=SA
+2025-07-22 16:02:13,898 INFO c.z.h.HikariDataSource {getConnection} [main] HikariPool-1 - Start completed.
+2025-07-22 16:02:13,905 INFO o.s.b.a.h.H2ConsoleAutoConfiguration {logDataSources} [main] H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:~/adodas.db'
+2025-07-22 16:02:14,035 INFO o.h.j.i.u.LogHelper {logPersistenceUnitInformation} [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-07-22 16:02:14,104 INFO o.h.Version {logVersion} [main] HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-07-22 16:02:14,137 INFO o.h.c.i.RegionFactoryInitiator {initiateService} [main] HHH000026: Second-level cache disabled
+2025-07-22 16:02:14,377 INFO o.s.o.j.p.SpringPersistenceUnitInfo {addTransformer} [main] No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-07-22 16:02:14,416 WARN o.h.e.j.d.i.DialectFactoryImpl {constructDialect} [main] HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-07-22 16:02:15,120 INFO o.h.e.t.j.p.i.JtaPlatformInitiator {initiateService} [main] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-22 16:02:15,160 INFO o.s.o.j.AbstractEntityManagerFactoryBean {buildNativeEntityManagerFactory} [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-07-22 16:02:15,451 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration {openEntityManagerInViewInterceptor} [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-07-22 16:02:15,768 INFO o.a.j.l.DirectJDKLog {log} [main] Starting ProtocolHandler ["http-nio-8080"]
+2025-07-22 16:02:15,782 INFO o.s.b.w.e.t.TomcatWebServer {start} [main] Tomcat started on port 8080 (http) with context path '/'
+2025-07-22 16:02:15,788 INFO o.s.b.StartupInfoLogger {logStarted} [main] Started AdodasApiApplication in 3.726 seconds (process running for 4.38)
+2025-07-22 16:20:53,634 INFO o.s.o.j.AbstractEntityManagerFactoryBean {destroy} [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-07-22 16:20:53,636 INFO c.z.h.HikariDataSource {close} [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2025-07-22 16:20:53,638 INFO c.z.h.HikariDataSource {close} [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2025-07-22 16:21:05,456 INFO o.h.v.i.u.Version {<clinit>} [background-preinit] HV000001: Hibernate Validator 8.0.1.Final
+2025-07-22 16:21:05,484 INFO o.s.b.StartupInfoLogger {logStarting} [main] Starting AdodasApiApplication using Java 21.0.1 with PID 10392 (C:\Users\mauro\Documents\Adodas\adodas_api\target\classes started by mauro in C:\Users\mauro\Documents\Adodas\adodas_api)
+2025-07-22 16:21:05,485 INFO o.s.b.SpringApplication {logStartupProfileInfo} [main] No active profile set, falling back to 1 default profile: "default"
+2025-07-22 16:21:05,997 INFO o.s.d.r.c.RepositoryConfigurationDelegate {registerRepositoriesIn} [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-07-22 16:21:06,060 INFO o.s.d.r.c.RepositoryConfigurationDelegate {registerRepositoriesIn} [main] Finished Spring Data repository scanning in 56 ms. Found 5 JPA repository interfaces.
+2025-07-22 16:21:06,531 INFO o.s.b.w.e.t.TomcatWebServer {initialize} [main] Tomcat initialized with port 8080 (http)
+2025-07-22 16:21:06,605 INFO o.s.b.w.s.c.ServletWebServerApplicationContext {prepareWebApplicationContext} [main] Root WebApplicationContext: initialization completed in 1092 ms
+2025-07-22 16:21:06,628 INFO c.z.h.HikariDataSource {getConnection} [main] HikariPool-1 - Starting...
+2025-07-22 16:21:06,788 INFO c.z.h.p.HikariPool {checkFailFast} [main] HikariPool-1 - Added connection conn0: url=jdbc:h2:file:~/adodas.db user=SA
+2025-07-22 16:21:06,789 INFO c.z.h.HikariDataSource {getConnection} [main] HikariPool-1 - Start completed.
+2025-07-22 16:21:06,796 INFO o.s.b.a.h.H2ConsoleAutoConfiguration {logDataSources} [main] H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:~/adodas.db'
+2025-07-22 16:21:06,957 INFO o.h.j.i.u.LogHelper {logPersistenceUnitInformation} [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-07-22 16:21:07,071 INFO o.h.Version {logVersion} [main] HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-07-22 16:21:07,099 INFO o.h.c.i.RegionFactoryInitiator {initiateService} [main] HHH000026: Second-level cache disabled
+2025-07-22 16:21:07,303 INFO o.s.o.j.p.SpringPersistenceUnitInfo {addTransformer} [main] No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-07-22 16:21:07,331 WARN o.h.e.j.d.i.DialectFactoryImpl {constructDialect} [main] HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-07-22 16:21:07,924 INFO o.h.e.t.j.p.i.JtaPlatformInitiator {initiateService} [main] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-22 16:21:07,958 INFO o.s.o.j.AbstractEntityManagerFactoryBean {buildNativeEntityManagerFactory} [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-07-22 16:21:08,307 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration {openEntityManagerInViewInterceptor} [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-07-22 16:21:08,790 INFO o.s.b.w.e.t.TomcatWebServer {start} [main] Tomcat started on port 8080 (http) with context path '/'
+2025-07-22 16:21:08,797 INFO o.s.b.StartupInfoLogger {logStarted} [main] Started AdodasApiApplication in 3.652 seconds (process running for 3.885)
+2025-07-22 16:21:08,807 INFO o.s.o.j.AbstractEntityManagerFactoryBean {destroy} [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-07-22 16:21:08,809 INFO c.z.h.HikariDataSource {close} [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2025-07-22 16:21:09,013 INFO c.z.h.HikariDataSource {close} [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2025-07-22 16:21:20,317 INFO o.h.v.i.u.Version {<clinit>} [background-preinit] HV000001: Hibernate Validator 8.0.1.Final
+2025-07-22 16:21:20,345 INFO o.s.b.StartupInfoLogger {logStarting} [main] Starting AdodasApiApplication using Java 21.0.1 with PID 9524 (C:\Users\mauro\Documents\Adodas\adodas_api\target\classes started by mauro in C:\Users\mauro\Documents\Adodas\adodas_api)
+2025-07-22 16:21:20,346 INFO o.s.b.SpringApplication {logStartupProfileInfo} [main] No active profile set, falling back to 1 default profile: "default"
+2025-07-22 16:21:20,876 INFO o.s.d.r.c.RepositoryConfigurationDelegate {registerRepositoriesIn} [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-07-22 16:21:20,939 INFO o.s.d.r.c.RepositoryConfigurationDelegate {registerRepositoriesIn} [main] Finished Spring Data repository scanning in 57 ms. Found 5 JPA repository interfaces.
+2025-07-22 16:21:21,449 INFO o.s.b.w.e.t.TomcatWebServer {initialize} [main] Tomcat initialized with port 8080 (http)
+2025-07-22 16:21:21,464 INFO o.a.j.l.DirectJDKLog {log} [main] Initializing ProtocolHandler ["http-nio-8080"]
+2025-07-22 16:21:21,468 INFO o.a.j.l.DirectJDKLog {log} [main] Starting service [Tomcat]
+2025-07-22 16:21:21,468 INFO o.a.j.l.DirectJDKLog {log} [main] Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-07-22 16:21:21,537 INFO o.a.j.l.DirectJDKLog {log} [main] Initializing Spring embedded WebApplicationContext
+2025-07-22 16:21:21,538 INFO o.s.b.w.s.c.ServletWebServerApplicationContext {prepareWebApplicationContext} [main] Root WebApplicationContext: initialization completed in 1160 ms
+2025-07-22 16:21:21,566 INFO c.z.h.HikariDataSource {getConnection} [main] HikariPool-1 - Starting...
+2025-07-22 16:21:21,743 INFO c.z.h.p.HikariPool {checkFailFast} [main] HikariPool-1 - Added connection conn0: url=jdbc:h2:file:~/adodas.db user=SA
+2025-07-22 16:21:21,745 INFO c.z.h.HikariDataSource {getConnection} [main] HikariPool-1 - Start completed.
+2025-07-22 16:21:21,752 INFO o.s.b.a.h.H2ConsoleAutoConfiguration {logDataSources} [main] H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:~/adodas.db'
+2025-07-22 16:21:21,907 INFO o.h.j.i.u.LogHelper {logPersistenceUnitInformation} [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-07-22 16:21:22,039 INFO o.h.Version {logVersion} [main] HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-07-22 16:21:22,069 INFO o.h.c.i.RegionFactoryInitiator {initiateService} [main] HHH000026: Second-level cache disabled
+2025-07-22 16:21:22,289 INFO o.s.o.j.p.SpringPersistenceUnitInfo {addTransformer} [main] No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-07-22 16:21:22,316 WARN o.h.e.j.d.i.DialectFactoryImpl {constructDialect} [main] HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-07-22 16:21:22,901 INFO o.h.e.t.j.p.i.JtaPlatformInitiator {initiateService} [main] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-22 16:21:22,935 INFO o.s.o.j.AbstractEntityManagerFactoryBean {buildNativeEntityManagerFactory} [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-07-22 16:21:23,187 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration {openEntityManagerInViewInterceptor} [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-07-22 16:21:23,535 INFO o.a.j.l.DirectJDKLog {log} [main] Starting ProtocolHandler ["http-nio-8080"]
+2025-07-22 16:21:23,564 INFO o.s.b.w.e.t.TomcatWebServer {start} [main] Tomcat started on port 8080 (http) with context path '/'
+2025-07-22 16:21:23,571 INFO o.s.b.StartupInfoLogger {logStarted} [main] Started AdodasApiApplication in 3.575 seconds (process running for 3.814)
+2025-07-22 17:05:44,847 INFO o.s.o.j.AbstractEntityManagerFactoryBean {destroy} [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-07-22 17:05:44,850 INFO c.z.h.HikariDataSource {close} [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2025-07-22 17:05:44,852 INFO c.z.h.HikariDataSource {close} [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.

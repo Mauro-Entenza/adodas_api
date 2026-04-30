@@ -1,0 +1,12 @@
+{
+  "request": {
+    "method": "DELETE",
+    "urlPattern": "/orders/9999"
+  },
+  "response": {
+    "status": 404,
+    "jsonBody": {
+      "message": "Order not found"
+    }
+  }
+}

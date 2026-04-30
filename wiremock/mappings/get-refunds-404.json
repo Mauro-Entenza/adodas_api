@@ -1,0 +1,12 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPattern": "/refunds/"
+  },
+  "response": {
+    "status": 404,
+    "jsonBody": {
+      "message": "Refund not found"
+    }
+  }
+}

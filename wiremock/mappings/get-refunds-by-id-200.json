@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPattern": "/refunds/"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "id": 1,
+      "reason": "Product damaged",
+      "refundDate": "2024-06-15",
+      "amount": 120.5,
+      "orderId": 2,
+      "customerId": 1,
+      "isApproved": false
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "request": {
+    "method": "PUT",
+    "url": "/orders/2"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "id": 2,
+      "customerNotes": "Delivered to reception",
+      "orderPrice": 195.5,
+      "isDelivered": true,
+      "orderDate": "2024-06-01",
+      "customer": {
+        "id": 1,
+        "name": "John",
+        "dni": "12345678A",
+        "surname": "Doe",
+        "email": "john@example.com",
+        "emailConfirmed": true,
+        "registerDate": "2024-01-01"
+      },
+      "items": [
+        {
+          "id": 1,
+          "brand": "Nike",
+          "color": "Black",
+          "category": "SHOES",
+          "price": 120.5,
+          "isWaterproof": false,
+          "releaseDate": "2024-03-15"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "request": {
+    "method": "PUT",
+    "url": "/services/9999"
+  },
+  "response": {
+    "status": 404,
+    "jsonBody": {
+      "message": "Service not found"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "request": {
+    "method": "DELETE",
+    "urlPattern": "/refunds/9999"
+  },
+  "response": {
+    "status": 404,
+    "jsonBody": {
+      "message": "Refund not found"
+    }
+  }
+}

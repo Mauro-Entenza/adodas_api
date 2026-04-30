@@ -1,0 +1,13 @@
+{
+  "priority": 10,
+  "request": {
+    "method": "DELETE",
+    "urlPattern": "/refunds/2"
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "message": "Refund deleted successfully"
+    }
+  }
+}
