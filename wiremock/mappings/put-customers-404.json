@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "PUT",
+    "url": "/customers/999"
+  },
+  "response": {
+    "status": 404,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "code": 404,
+      "message": "Customer not found"
+    }
+  }
+}

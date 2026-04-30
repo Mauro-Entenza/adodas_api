@@ -1,0 +1,12 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPattern": "/items/"
+  },
+  "response": {
+    "status": 404,
+    "jsonBody": {
+      "message": "Item not found"
+    }
+  }
+}

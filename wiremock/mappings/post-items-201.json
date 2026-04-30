@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/items"
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "id": 1,
+      "brand": "Columbia",
+      "color": "Green",
+      "category": "SWEATER",
+      "price": 150.0,
+      "isWaterproof": true,
+      "releaseDate": "2024-05-10"
+    }
+  }
+}

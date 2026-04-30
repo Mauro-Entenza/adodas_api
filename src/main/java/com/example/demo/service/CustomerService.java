@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.domain.dto.CustomerDto;
 import com.example.demo.exception.CustomerNotFoundException;
 import java.util.List;
+import java.util.Map;
 
 public interface CustomerService {
 
@@ -14,7 +15,9 @@ public interface CustomerService {
 
   CustomerDto modify(long customerId, CustomerDto customerDto) throws CustomerNotFoundException;
 
-  List<CustomerDto> searchCustomers(String name, String email);
+  CustomerDto patchCustomer(long customerId, Map<String, Object> updates)
+      throws CustomerNotFoundException;
 
-  List<CustomerDto> searchCustomers(String name, String email, String surname);
+  // ✅ Método unificado de filtros
+  List<CustomerDto> findByFilters(String name, String email, String surname);
 }

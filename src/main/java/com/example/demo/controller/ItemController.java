@@ -7,6 +7,7 @@ import com.example.demo.exception.ItemNotFoundException;
 import com.example.demo.service.ItemService;
 import jakarta.validation.Valid;
 import java.util.List;
+import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -27,13 +29,29 @@ import org.springframework.web.bind.annotation.RestController;
 public class ItemController {
 
   private final Logger logger = LoggerFactory.getLogger(ItemController.class);
+
   @Autowired
   private ItemService itemService;
 
+  // ✅ GET /items con filtros opcionales
   @GetMapping("/items")
-  public ResponseEntity<List<ItemDto>> getAll() {
-    logger.info("BEGIN getAll");
-    List<ItemDto> items = itemService.findAll();
+  public ResponseEntity<List<ItemDto>> getItems(
+      @RequestParam(value = "brand", required = false) String brand,
+      @RequestParam(value = "category", required = false) CategoryEnum category,
+      @RequestParam(value = "price", required = false) Float price) {
+
+    logger.info("BEGIN getItems with filters: brand={}, category={}, price={}", brand, category,
+        price);
+
+    List<ItemDto> items;
+
+    // Si hay algún filtro, llamamos al método de filtrado
+    if (brand != null || category != null || price != null) {
+      items = itemService.getItemsByFilter(brand, category, price);
+    } else {
+      items = itemService.findAll();
+    }
+
     return new ResponseEntity<>(items, HttpStatus.OK);
   }
 
@@ -46,11 +64,18 @@ public class ItemController {
 
   @PutMapping("/items/{itemId}")
   public ResponseEntity<ItemDto> modifyItem(@PathVariable long itemId,
-      @Valid @RequestBody ItemDto itemDto)
-      throws ItemNotFoundException {
+      @Valid @RequestBody ItemDto itemDto) throws ItemNotFoundException {
     logger.info("BEGIN modifyItem");
     ItemDto modifiedItem = itemService.modify(itemId, itemDto);
     return new ResponseEntity<>(modifiedItem, HttpStatus.OK);
+  }
+
+  @PatchMapping("/items/{itemId}")
+  public ResponseEntity<ItemDto> patchItem(@PathVariable long itemId,
+      @RequestBody Map<String, Object> updates) throws ItemNotFoundException {
+    logger.info("BEGIN patchItem - id: {}, updates: {}", itemId, updates);
+    ItemDto updatedItem = itemService.patchItem(itemId, updates);
+    return new ResponseEntity<>(updatedItem, HttpStatus.OK);
   }
 
   @DeleteMapping("/items/{itemId}")
@@ -58,6 +83,8 @@ public class ItemController {
     this.itemService.deleteItem(itemId);
     return ResponseEntity.noContent().build();
   }
+
+  // ------------------ HANDLERS ------------------
 
   @ExceptionHandler(ItemNotFoundException.class)
   public ResponseEntity<ErrorResponseDto> handleItemNotFoundException(
@@ -81,23 +108,11 @@ public class ItemController {
     return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
   }
 
-  @GetMapping("/items/search")
-  public ResponseEntity<List<ItemDto>> getItemsByFilter(
-      @RequestParam(value = "brand", required = false) String brand,
-      @RequestParam(value = "category", required = false) CategoryEnum category,
-      @RequestParam(value = "price", required = false) Float price) {
-
-    List<ItemDto> items = itemService.getItemsByFilter(brand, category, price);
-    return new ResponseEntity<>(items, HttpStatus.OK);
-  }
-
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ErrorResponseDto> handleUnexpectedException(Exception exception) {
     ErrorResponseDto error = new ErrorResponseDto(500, "An unexpected error occurred",
         List.of(exception.getMessage()));
     logger.error("Unexpected error: {}", exception.getMessage(), exception);
-
     return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
   }
-
 }

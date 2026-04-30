@@ -1,0 +1,13 @@
+{
+  "priority": 1,
+  "request": {
+    "method": "PUT",
+    "urlPattern": "/refunds/9999"
+  },
+  "response": {
+    "status": 404,
+    "jsonBody": {
+      "message": "Refund not found"
+    }
+  }
+}

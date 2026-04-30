@@ -1,1049 +1,1629 @@
 openapi: 3.0.3
 info:
   title: Adodas API
-  description: API para gestionar clientes, servicios, pedidos y reembolsos.
+  description: |
+    API REST completa para gestión de **clientes, ítems, pedidos, reembolsos y servicios**.
+    
+    ## ✨ Características:
+    - ✅ **CRUD completo** todos los recursos
+    - ✅ **Validaciones robustas** (DNI, emails, precios)
+    - ✅ **Filtros avanzados** por estado, precio, cliente
+    - ✅ **Errores específicos** 400/404/500 diferenciados
+    - ✅ **Ejemplos reales** en todas las respuestas
   version: 1.0.0
+
 servers:
-  - url: 'http://localhost:8080'
-paths:
-  /customers:
-    get:
-      tags:
-        - CUSTOMERS
-      summary: Obtiene todos los clientes.
-      description: Devuelve una lista de todos los clientes.
-      responses:
-        '200':
-          description: Ok
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/CustomerDto"
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-        '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
+  - url: http://localhost:8080
+    description: Desarrollo Local
 
-    post:
-      tags:
-        - CUSTOMERS
-      summary: Crea un nuevo cliente.
-      description: Agrega un nuevo cliente a la base de datos.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CustomerDto"
-      responses:
-        '201':
-          description: Created
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/CustomerDto"
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-
-  /customers/{customerId}:
-    get:
-      tags:
-        - CUSTOMERS
-      summary: Obtiene un cliente por ID.
-      description: Devuelve los detalles de un cliente específico.
-      parameters:
-        - name: customerId
-          in: path
-          required: true
-          description: ID del cliente
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '200':
-          description: Ok
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/CustomerDto"
-        '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-
-    put:
-      tags:
-        - CUSTOMERS
-      summary: Modifica un cliente.
-      description: Actualiza los detalles de un cliente existente.
-      parameters:
-        - name: customerId
-          in: path
-          required: true
-          description: ID del cliente
-          schema:
-            type: integer
-            format: int64
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CustomerDto"
-      responses:
-        '200':
-          description: Ok
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/CustomerDto"
-        '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-
-    delete:
-      tags:
-        - CUSTOMERS
-      summary: Elimina un cliente.
-      description: Elimina el cliente con el ID indicado en el parámetro.
-      parameters:
-        - name: customerId
-          in: path
-          required: true
-          description: ID del cliente
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '204':
-          description: No Content
-        '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-
-  /items:
-    get:
-      tags:
-        - ITEMS
-      summary: Obtiene todos los ítems.
-      description: Devuelve una lista de todos los ítems.
-      responses:
-        '200':
-          description: Ok
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ItemDto"
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-        '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-
-    post:
-      tags:
-        - ITEMS
-      summary: Crea un nuevo ítem.
-      description: Agrega un nuevo ítem a la base de datos.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ItemDto"
-      responses:
-        '201':
-          description: Created
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ItemDto"
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-
-  /items/{itemId}:
-    get:
-      tags:
-        - ITEMS
-      summary: Obtiene un ítem por ID.
-      description: Devuelve los detalles de un ítem específico.
-      parameters:
-        - name: itemId
-          in: path
-          required: true
-          description: ID del ítem
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Ok
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ItemDto"
-        '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-
-    put:
-      tags:
-        - ITEMS
-      summary: Modifica un ítem.
-      description: Actualiza los detalles de un ítem existente.
-      parameters:
-        - name: itemId
-          in: path
-          required: true
-          description: ID del ítem
-          schema:
-            type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ItemDto"
-      responses:
-        '200':
-          description: Ok
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ItemDto"
-        '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-
-    delete:
-      tags:
-        - ITEMS
-      summary: Elimina un ítem.
-      description: Elimina el ítem con el ID indicado en el parámetro.
-      parameters:
-        - name: itemId
-          in: path
-          required: true
-          description: ID del ítem
-          schema:
-            type: string
-      responses:
-        '204':
-          description: No Content
-        '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-
-  /orders:
-    get:
-      tags:
-        - ORDERS
-      summary: Obtiene todos los pedidos.
-      description: Devuelve una lista de todos los pedidos.
-      responses:
-        '200':
-          description: Ok
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/OrderDto"
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-        '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-
-    post:
-      tags:
-        - ORDERS
-      summary: Crea un nuevo pedido.
-      description: Agrega un nuevo pedido a la base de datos.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/OrderDto"
-      responses:
-        '201':
-          description: Created
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/OrderDto"
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-
-  /orders/{orderId}:
-    get:
-      tags:
-        - ORDERS
-      summary: Obtiene un pedido por ID.
-      description: Devuelve los detalles de un pedido específico.
-      parameters:
-        - name: orderId
-          in: path
-          required: true
-          description: ID del pedido
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '200':
-          description: Ok
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/OrderDto"
-        '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-
-    put:
-      tags:
-        - ORDERS
-      summary: Modifica un pedido.
-      description: Actualiza los detalles de un pedido existente.
-      parameters:
-        - name: orderId
-          in: path
-          required: true
-          description: ID del pedido
-          schema:
-            type: integer
-            format: int64
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/OrderDto"
-      responses:
-        '200':
-          description: Ok
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/OrderDto"
-        '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-
-    delete:
-      tags:
-        - ORDERS
-      summary: Elimina un pedido.
-      description: Elimina el pedido con el ID indicado en el parámetro.
-      parameters:
-        - name: orderId
-          in: path
-          required: true
-          description: ID del pedido
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '204':
-          description: No Content
-        '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-
-  /refunds:
-    get:
-      tags:
-        - REFUNDS
-      summary: Obtiene todos los reembolsos.
-      description: Devuelve una lista de todos los reembolsos.
-      responses:
-        '200':
-          description: Ok
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/RefundDto"
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-        '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-
-    post:
-      tags:
-        - REFUNDS
-      summary: Crea un nuevo reembolso.
-      description: Agrega un nuevo reembolso a la base de datos.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/RefundDto"
-      responses:
-        '201':
-          description: Created
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RefundDto"
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-
-  /refunds/{refundId}:
-    get:
-      tags:
-        - REFUNDS
-      summary: Obtiene un reembolso por ID.
-      description: Devuelve los detalles de un reembolso específico.
-      parameters:
-        - name: refundId
-          in: path
-          required: true
-          description: ID del reembolso
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '200':
-          description: Ok
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RefundDto"
-        '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-
-    put:
-      tags:
-        - REFUNDS
-      summary: Modifica un reembolso.
-      description: Actualiza los detalles de un reembolso existente.
-      parameters:
-        - name: refundId
-          in: path
-          required: true
-          description: ID del reembolso
-          schema:
-            type: integer
-            format: int64
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/RefundDto"
-      responses:
-        '200':
-          description: Ok
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RefundDto"
-        '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-
-    delete:
-      tags:
-        - REFUNDS
-      summary: Elimina un reembolso.
-      description: Elimina el reembolso con el ID indicado en el parámetro.
-      parameters:
-        - name: refundId
-          in: path
-          required: true
-          description: ID del reembolso
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '204':
-          description: No Content
-        '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-
-  /services:
-    get:
-      tags:
-        - SERVICES
-      summary: Obtiene todos los servicios.
-      description: Devuelve una lista de todos los servicios.
-      responses:
-        '200':
-          description: Ok
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ServiceDto"
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-        '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-
-    post:
-      tags:
-        - SERVICES
-      summary: Crea un nuevo servicio.
-      description: Agrega un nuevo servicio a la base de datos.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ServiceDto"
-      responses:
-        '201':
-          description: Created
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ServiceDto"
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-
-  /services/{serviceId}:
-    get:
-      tags:
-        - SERVICES
-      summary: Obtiene un servicio por ID.
-      description: Devuelve los detalles de un servicio específico.
-      parameters:
-        - name: serviceId
-          in: path
-          required: true
-          description: ID del servicio
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '200':
-          description: Ok
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ServiceDto"
-        '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-
-    put:
-      tags:
-        - SERVICES
-      summary: Modifica un servicio.
-      description: Actualiza los detalles de un servicio existente.
-      parameters:
-        - name: serviceId
-          in: path
-          required: true
-          description: ID del servicio
-          schema:
-            type: integer
-            format: int64
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ServiceDto"
-      responses:
-        '200':
-          description: Ok
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ServiceDto"
-        '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-
-    delete:
-      tags:
-        - SERVICES
-      summary: Elimina un servicio.
-      description: Elimina el servicio con el ID indicado en el parámetro.
-      parameters:
-        - name: serviceId
-          in: path
-          required: true
-          description: ID del servicio
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '204':
-          description: No Content
-        '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseDto'
+tags:
+  - name: CUSTOMERS
+    description: 👥 Gestión de clientes
+  - name: ITEMS
+    description: 📦 Catálogo de productos
+  - name: ORDERS
+    description: 🛒 Pedidos y entregas
+  - name: REFUNDS
+    description: 💰 Reembolsos
+  - name: SERVICES
+    description: 🔧 Servicios profesionales
 
 components:
   schemas:
+    ErrorResponseDto:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Código HTTP del error
+        message:
+          type: string
+          description: Descripción del error
+      required: [ code, message ]
+
     CustomerDto:
       type: object
       properties:
-        id:
-          type: integer
-          format: int64
-          description: Identificador del cliente
-          example: 1
         name:
           type: string
-          description: Nombre del cliente
-          example: John Doe
-        dni:
-          type: string
-          description: DNI del cliente
-          example: 12345678A
+          example: "Juan"
         surname:
           type: string
-          description: Apellido del cliente
-          example: Doe
+          example: "Pérez"
+        dni:
+          type: string
+          pattern: '^\d{8}[A-Z]$'
+          example: "12345678A"
         email:
           type: string
           format: email
-          description: Correo electrónico del cliente
-          example: johndoe@email.com
+          example: "juan.perez@email.com"
         isEmailConfirmed:
           type: boolean
-          description: Indica si el correo electrónico está confirmado
           example: true
         registerDate:
           type: string
           format: date
-          description: Fecha de registro del cliente
-          example: "2024-01-01"
+          readOnly: true
+          example: "2026-01-15"
 
     ItemDto:
       type: object
       properties:
-        id:
+        name:
           type: string
-          description: Identificador del ítem
-          example: "1"
+          example: "Camiseta Nike Sport"
         brand:
           type: string
-          description: Marca del ítem
-          example: Nike
-        color:
-          type: string
-          description: Color del ítem
-          example: Red
-        category:
-          type: string
-          description: Categoría del ítem
-          example: "SHOES"
+          example: "Nike"
         price:
           type: number
           format: float
-          description: Precio del ítem
-          example: 59.99
-        isWaterproof:
-          type: boolean
-          description: Indica si el ítem es impermeable
-          example: false
-        releaseDate:
+          minimum: 0
+          example: 29.99
+        category:
+          $ref: '#/components/schemas/CategoryEnum'
+        stock:
+          type: integer
+          minimum: 0
+          example: 150
+        description:
           type: string
-          format: date
-          description: Fecha de lanzamiento del ítem
-          example: "2024-01-01"
+          example: "Camiseta de algodón 100% transpirable"
+        createdDate:
+          type: string
+          format: date-time
+          readOnly: true
+          example: "2026-01-15T10:30:00Z"
 
+    CategoryEnum:
+      type: string
+      enum: [ SHOES, TROUSERS, SWEATER, SHIRTS ]
+      example: "SHIRTS"
     OrderDto:
       type: object
       properties:
         id:
           type: integer
           format: int64
-          description: Identificador del pedido
-          example: 1
-        customerNotes:
-          type: string
-          description: Notas del cliente
-          example: "Please deliver after 5 PM"
-        orderPrice:
-          type: number
-          format: float
-          description: Precio total del pedido
-          example: 100.50
-        isDelivered:
-          type: boolean
-          description: Indica si el pedido ha sido entregado
-          example: false
-        orderDate:
-          type: string
-          format: date
-          description: Fecha del pedido
-          example: "2024-01-01"
+          readOnly: true
+          example: 101
         customerId:
           type: integer
           format: int64
-          description: ID del cliente
-          example: 1
-        itemIds:
+          example: 12
+        items:
           type: array
+          description: Lista de IDs de ítems incluidos en el pedido
           items:
             type: integer
             format: int64
-          description: Lista de IDs de ítems en el pedido
-          example: [ 1, 2, 3 ]
-
+          example: [ 3, 14, 22 ]
+        orderPrice:
+          type: number
+          format: float
+          minimum: 0
+          example: 79.85
+        delivered:
+          type: boolean
+          example: false
     RefundDto:
       type: object
       properties:
         id:
           type: integer
           format: int64
-          description: Identificador del reembolso
-          example: 1
+          readOnly: true
+          example: 25
         reason:
           type: string
-          description: Motivo del reembolso
-          example: "Product defective"
+          description: Motivo del reembolso.
+          example: "Producto defectuoso"
         refundDate:
           type: string
           format: date
-          description: Fecha del reembolso
-          example: "2024-01-01"
+          description: Fecha en la que se realizó el reembolso.
+          example: "2026-01-28"
         amount:
           type: number
           format: float
-          description: Monto del reembolso
-          example: 50.00
+          minimum: 0
+          description: Importe total del reembolso.
+          example: 49.99
         orderId:
           type: integer
           format: int64
-          description: ID del pedido asociado
-          example: 1
+          description: ID del pedido relacionado.
+          example: 320
         customerId:
           type: integer
           format: int64
-          description: ID del cliente
-          example: 1
-        isApproved:
+          description: ID del cliente que recibe el reembolso.
+          example: 8
+        approved:
           type: boolean
-          description: Indica si el reembolso ha sido aprobado
+          description: Indica si el reembolso fue aprobado.
           example: true
-
+      required: [ reason, refundDate, amount ]
     ServiceDto:
       type: object
       properties:
         id:
           type: integer
           format: int64
-          description: Identificador del servicio
-          example: 1
+          readOnly: true
+          example: 42
         name:
           type: string
-          description: Nombre del servicio
-          example: "Consultation"
+          description: Nombre del servicio de la tienda.
+          example: "Dobladillo de pantalones"
         description:
           type: string
-          description: Descripción del servicio
-          example: "One-on-one consultation"
+          description: Descripción del servicio de ropa.
+          example: "Ajuste profesional de dobladillo para pantalones vaqueros o vestir"
         price:
           type: number
           format: float
-          description: Precio del servicio
-          example: 75.00
+          minimum: 0
+          description: Precio del servicio.
+          example: 12.50
         availableFrom:
           type: string
           format: date
-          description: Fecha de disponibilidad del servicio
-          example: "2024-01-01"
+          description: Fecha desde la que está disponible.
+          example: "2026-02-01"
         availableTo:
           type: string
           format: date
-          description: Fecha de finalización de la disponibilidad
-          example: "2024-12-31"
+          description: Fecha hasta la que está disponible.
+          example: "2026-12-31"
         isActive:
           type: boolean
-          description: Indica si el servicio está activo
+          description: Indica si el servicio está disponible.
           example: true
         customerId:
           type: integer
           format: int64
-          description: ID del cliente asociado
-          example: 1
+          description: ID del cliente asociado (opcional).
+          example: 15
         notes:
           type: string
-          description: Notas adicionales sobre el servicio
-          example: "Requires prior appointment"
-
-    ErrorResponseDto:
+          description: Notas adicionales del servicio.
+          example: "Servicio exprés disponible (+5€)"
+      required: [ name, price ]
+    CustomerV2Dto:
       type: object
       properties:
-        code:
+        id:
           type: integer
-          description: Código de error
-          example: 400
-        message:
+          format: int64
+          readOnly: true
+          example: 10
+        name:
           type: string
-          description: Mensaje de error
-          example: "Validation failed"
-        errors:
-          type: array
-          items:
+          description: Nombre del cliente.
+          example: Juan
+        email:
+          type: string
+          format: email
+          description: Correo electrónico del cliente.
+          example: juan.perez@example.com
+        phone:
+          type: string
+          description: Teléfono del cliente.
+          example: "+34 600 123 456"
+      required:
+        - name
+        - email
+        - phone
+
+
+
+paths:
+  /v1/customers:
+    get:
+      tags: [ CUSTOMERS ]
+      summary: Lista todos los clientes
+      description: Obtiene una lista paginada o filtrada de clientes registrados.
+      parameters:
+        - name: name
+          in: query
+          required: false
+          schema:
             type: string
-          description: Lista de errores de validación
-          example: [ "The name field is required", "The email must be a valid email address" ]
+          description: Filtra por nombre del cliente.
+        - name: email
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filtra por email del cliente.
+        - name: surname
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filtra por apellido del cliente.
+      responses:
+        '200':
+          description: Lista de clientes obtenida correctamente.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomerDto'
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 500
+                message: "Error interno del servidor"
+
+    post:
+      tags: [ CUSTOMERS ]
+      summary: Crea un nuevo cliente
+      description: Registra un nuevo cliente validando DNI, email y formato de datos.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerDto'
+      responses:
+        '201':
+          description: Cliente creado correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerDto'
+        '400':
+          description: Error de validación en los datos proporcionados.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 400
+                message: "Validation failed"
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 500
+                message: "Error interno del servidor"
+
+  /v1/customers/{customerId}:
+    get:
+      tags: [ CUSTOMERS ]
+      summary: Obtiene un cliente por su ID
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: ID del cliente.
+      responses:
+        '200':
+          description: Cliente encontrado correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerDto'
+        '404':
+          description: Cliente no encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 404
+                message: "Cliente no encontrado"
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 500
+                message: "Error interno del servidor"
+
+    put:
+      tags: [ CUSTOMERS ]
+      summary: Modifica un cliente existente
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: ID del cliente a modificar.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerDto'
+      responses:
+        '200':
+          description: Cliente modificado correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerDto'
+        '400':
+          description: Error de validación en los datos proporcionados.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 400
+                message: "Validation failed"
+        '404':
+          description: Cliente no encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 404
+                message: "Cliente no encontrado"
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 500
+                message: "Error interno del servidor"
+
+    patch:
+      tags: [ CUSTOMERS ]
+      summary: Actualiza parcialmente un cliente
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: ID del cliente a actualizar parcialmente.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+              example:
+                email: "nuevo.email@email.com"
+      responses:
+        '200':
+          description: Cliente actualizado parcialmente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerDto'
+        '400':
+          description: Error de validación o cuerpo inválido.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 400
+                message: "Validation failed"
+        '404':
+          description: Cliente no encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 404
+                message: "Cliente no encontrado"
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 500
+                message: "Error interno del servidor"
+
+    delete:
+      tags: [ CUSTOMERS ]
+      summary: Elimina un cliente
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: ID del cliente a eliminar.
+      responses:
+        '204':
+          description: Cliente eliminado correctamente (sin contenido en la respuesta).
+        '404':
+          description: Cliente no encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 404
+                message: "Cliente no encontrado"
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 500
+                message: "Error interno del servidor"
+  /v2/customers:
+    get:
+      tags: [ CUSTOMERS ]
+      summary: Lista todos los clientes v2
+      description: Obtiene una lista paginada de clientes usando page y size.
+      parameters:
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 0
+          description: Número de página, empezando en 0.
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 5
+          description: Tamaño de página.
+      responses:
+        '200':
+          description: Lista de clientes obtenida correctamente.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomerDto'
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 500
+                message: "Error interno del servidor"
+
+    post:
+      tags: [ CUSTOMERS ]
+      summary: Crea un nuevo cliente v2
+      description: Registra un cliente usando el contrato v2 con phone obligatorio.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerV2Dto'
+      responses:
+        '201':
+          description: Cliente creado correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerV2Dto'
+        '400':
+          description: Error de validación en los datos proporcionados.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 400
+                message: "Validation failed"
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 500
+                message: "Error interno del servidor"
+
+  /v2/customers/{id}:
+    put:
+      tags: [ CUSTOMERS ]
+      summary: Actualiza un cliente v2
+      description: Solo permite modificar email y surname.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: ID del cliente.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+              example:
+                email: nuevo@email.com
+                surname: García
+      responses:
+        '200':
+          description: Cliente actualizado correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerDto'
+        '404':
+          description: Cliente no encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 404
+                message: "Cliente no encontrado"
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 500
+                message: "Error interno del servidor"
+
+    delete:
+      tags: [ CUSTOMERS ]
+      summary: Elimina un cliente v2
+      description: Simula un soft delete y devuelve un mensaje de confirmación.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: ID del cliente.
+      responses:
+        '200':
+          description: Cliente marcado como eliminado correctamente.
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: Customer with id 10 marked as deleted (soft delete in v2)
+        '404':
+          description: Cliente no encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 404
+                message: "Cliente no encontrado"
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 500
+                message: "Error interno del servidor"
+  /items:
+    get:
+      tags: [ ITEMS ]
+      summary: Lista todos los ítems
+      description: Obtiene una lista de ítems con filtros opcionales por marca, categoría o precio.
+      parameters:
+        - name: brand
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filtra por marca del ítem.
+        - name: category
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/CategoryEnum'
+          description: Filtra por categoría del ítem.
+        - name: price
+          in: query
+          required: false
+          schema:
+            type: number
+            format: float
+          description: Filtra por precio exacto del ítem.
+      responses:
+        '200':
+          description: Lista de ítems obtenida correctamente.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ItemDto'
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 500
+                message: "Error interno del servidor"
+
+    post:
+      tags: [ ITEMS ]
+      summary: Crea un nuevo ítem
+      description: Registra un nuevo ítem en el catálogo validando precio y categoría.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemDto'
+      responses:
+        '201':
+          description: Ítem creado correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemDto'
+        '400':
+          description: Error de validación en los datos proporcionados.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 400
+                message: "Validation failed"
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 500
+                message: "Error interno del servidor"
+
+  /items/{itemId}:
+    get:
+      tags: [ ITEMS ]
+      summary: Obtiene un ítem por su ID
+      parameters:
+        - name: itemId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: ID del ítem.
+      responses:
+        '200':
+          description: Ítem encontrado correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemDto'
+        '404':
+          description: Ítem no encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 404
+                message: "Ítem no encontrado"
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 500
+                message: "Error interno del servidor"
+
+    put:
+      tags: [ ITEMS ]
+      summary: Modifica un ítem existente
+      parameters:
+        - name: itemId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: ID del ítem a modificar.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemDto'
+      responses:
+        '200':
+          description: Ítem modificado correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemDto'
+        '400':
+          description: Error de validación en los datos proporcionados.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 400
+                message: "Validation failed"
+        '404':
+          description: Ítem no encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 404
+                message: "Ítem no encontrado"
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 500
+                message: "Error interno del servidor"
+
+    patch:
+      tags: [ ITEMS ]
+      summary: Actualiza parcialmente un ítem
+      parameters:
+        - name: itemId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: ID del ítem a actualizar parcialmente.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+              example:
+                price: 35.99
+                stock: 200
+      responses:
+        '200':
+          description: Ítem actualizado parcialmente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemDto'
+        '400':
+          description: Error de validación o cuerpo inválido.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 400
+                message: "Validation failed"
+        '404':
+          description: Ítem no encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 404
+                message: "Ítem no encontrado"
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 500
+                message: "Error interno del servidor"
+
+    delete:
+      tags: [ ITEMS ]
+      summary: Elimina un ítem
+      parameters:
+        - name: itemId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: ID del ítem a eliminar.
+      responses:
+        '204':
+          description: Ítem eliminado correctamente (sin contenido en la respuesta).
+        '404':
+          description: Ítem no encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 404
+                message: "Ítem no encontrado"
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 500
+                message: "Error interno del servidor"
+  /orders:
+    get:
+      tags: [ ORDERS ]
+      summary: Lista todos los pedidos
+      description: Obtiene pedidos con filtros opcionales por estado de entrega o rango de precio.
+      parameters:
+        - name: delivered
+          in: query
+          schema:
+            type: boolean
+          description: Filtra por pedidos entregados o pendientes.
+        - name: minPrice
+          in: query
+          schema:
+            type: number
+            format: float
+            minimum: 0
+          description: Precio mínimo de los pedidos.
+        - name: maxPrice
+          in: query
+          schema:
+            type: number
+            format: float
+            minimum: 0
+          description: Precio máximo de los pedidos.
+      responses:
+        '200':
+          description: Lista de pedidos obtenida correctamente.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderDto'
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 500
+                message: "Error interno del servidor"
+
+    post:
+      tags: [ ORDERS ]
+      summary: Crea un nuevo pedido
+      description: Registra un nuevo pedido con validaciones de total y cliente.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderDto'
+      responses:
+        '201':
+          description: Pedido creado correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDto'
+        '400':
+          description: Error de validación en los datos proporcionados.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 400
+                message: "Validation failed"
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 500
+                message: "Error interno del servidor"
+
+  /orders/{orderId}:
+    put:
+      tags: [ ORDERS ]
+      summary: Modifica un pedido existente
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: ID del pedido.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderDto'
+      responses:
+        '200':
+          description: Pedido modificado correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDto'
+        '400':
+          description: Error de validación en los datos proporcionados.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 400
+                message: "Validation failed"
+        '404':
+          description: Pedido no encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 404
+                message: "Pedido no encontrado"
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 500
+                message: "Error interno del servidor"
+
+    patch:
+      tags: [ ORDERS ]
+      summary: Actualiza parcialmente un pedido
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: ID del pedido.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+              example:
+                delivered: true
+                totalPrice: 85.55
+      responses:
+        '200':
+          description: Pedido actualizado parcialmente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDto'
+        '400':
+          description: Error de validación o cuerpo inválido.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 400
+                message: "Validation failed"
+        '404':
+          description: Pedido no encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 404
+                message: "Pedido no encontrado"
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 500
+                message: "Error interno del servidor"
+
+    delete:
+      tags: [ ORDERS ]
+      summary: Elimina un pedido
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: ID del pedido a eliminar.
+      responses:
+        '204':
+          description: Pedido eliminado correctamente (sin contenido en la respuesta).
+        '404':
+          description: Pedido no encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 404
+                message: "Pedido no encontrado"
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 500
+                message: "Error interno del servidor"
+  /refunds:
+    get:
+      tags: [ REFUNDS ]
+      summary: Lista todos los reembolsos
+      description: Obtiene una lista de reembolsos aplicando filtros opcionales por motivo, monto mínimo y estado de aprobación.
+      parameters:
+        - name: reason
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filtra por motivo del reembolso.
+        - name: minAmount
+          in: query
+          required: false
+          schema:
+            type: number
+            format: float
+            minimum: 0
+          description: Filtra por importe mínimo.
+        - name: isApproved
+          in: query
+          required: false
+          schema:
+            type: boolean
+          description: Filtra por si el reembolso fue aprobado.
+      responses:
+        '200':
+          description: Lista de reembolsos obtenida correctamente.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RefundDto'
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 500
+                message: "Error interno del servidor"
+
+    post:
+      tags: [ REFUNDS ]
+      summary: Crea un nuevo reembolso
+      description: Registra un nuevo reembolso validando motivo, cantidad y fecha.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefundDto'
+      responses:
+        '201':
+          description: Reembolso creado correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefundDto'
+        '400':
+          description: Error de validación en los datos proporcionados.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 400
+                message: "Validation failed"
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 500
+                message: "Error interno del servidor"
+
+  /refunds/{refundId}:
+    put:
+      tags: [ REFUNDS ]
+      summary: Modifica un reembolso existente
+      parameters:
+        - name: refundId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: ID del reembolso.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefundDto'
+      responses:
+        '200':
+          description: Reembolso modificado correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefundDto'
+        '400':
+          description: Error de validación en los datos.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 400
+                message: "Validation failed"
+        '404':
+          description: Reembolso no encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 404
+                message: "Reembolso no encontrado"
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 500
+                message: "Error interno del servidor"
+
+    patch:
+      tags: [ REFUNDS ]
+      summary: Actualiza parcialmente un reembolso
+      parameters:
+        - name: refundId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: ID del reembolso a actualizar parcialmente.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+              example:
+                amount: 42.80
+                approved: true
+      responses:
+        '200':
+          description: Reembolso actualizado parcialmente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefundDto'
+        '400':
+          description: Error de validación o cuerpo inválido.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 400
+                message: "Validation failed"
+        '404':
+          description: Reembolso no encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 404
+                message: "Reembolso no encontrado"
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 500
+                message: "Error interno del servidor"
+
+    delete:
+      tags: [ REFUNDS ]
+      summary: Elimina un reembolso
+      parameters:
+        - name: refundId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: ID del reembolso a eliminar.
+      responses:
+        '204':
+          description: Reembolso eliminado correctamente (sin contenido en la respuesta).
+        '404':
+          description: Reembolso no encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 404
+                message: "Reembolso no encontrado"
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 500
+                message: "Error interno del servidor"
+  /services:
+    get:
+      tags: [ SERVICES ]
+      summary: Lista todos los servicios
+      description: Obtiene una lista de servicios con filtros opcionales por nombre, rango de precio y estado activo.
+      parameters:
+        - name: name
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filtra por nombre del servicio.
+        - name: minPrice
+          in: query
+          required: false
+          schema:
+            type: number
+            format: float
+            minimum: 0
+          description: Precio mínimo de los servicios.
+        - name: maxPrice
+          in: query
+          required: false
+          schema:
+            type: number
+            format: float
+            minimum: 0
+          description: Precio máximo de los servicios.
+        - name: isActive
+          in: query
+          required: false
+          schema:
+            type: boolean
+          description: Filtra por servicios activos/inactivos.
+      responses:
+        '200':
+          description: Lista de servicios obtenida correctamente.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ServiceDto'
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 500
+                message: "Error interno del servidor"
+
+    post:
+      tags: [ SERVICES ]
+      summary: Crea un nuevo servicio
+      description: Registra un nuevo servicio profesional validando nombre y precio.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServiceDto'
+      responses:
+        '201':
+          description: Servicio creado correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceDto'
+        '400':
+          description: Error de validación en los datos proporcionados.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 400
+                message: "Validation failed"
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 500
+                message: "Error interno del servidor"
+
+  /services/{serviceId}:
+    get:
+      tags: [ SERVICES ]
+      summary: Obtiene un servicio por su ID
+      parameters:
+        - name: serviceId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: ID del servicio.
+      responses:
+        '200':
+          description: Servicio encontrado correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceDto'
+        '404':
+          description: Servicio no encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 404
+                message: "Servicio no encontrado"
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 500
+                message: "Error interno del servidor"
+
+    put:
+      tags: [ SERVICES ]
+      summary: Modifica un servicio existente
+      parameters:
+        - name: serviceId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: ID del servicio a modificar.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServiceDto'
+      responses:
+        '200':
+          description: Servicio modificado correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceDto'
+        '400':
+          description: Error de validación en los datos proporcionados.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 400
+                message: "Validation failed"
+        '404':
+          description: Servicio no encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 404
+                message: "Servicio no encontrado"
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 500
+                message: "Error interno del servidor"
+
+    patch:
+      tags: [ SERVICES ]
+      summary: Actualiza parcialmente un servicio
+      parameters:
+        - name: serviceId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: ID del servicio a actualizar parcialmente.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+              example:
+                price: 1499.00
+                isActive: false
+                notes: "Servicio pausado temporalmente"
+      responses:
+        '200':
+          description: Servicio actualizado parcialmente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceDto'
+        '400':
+          description: Error de validación o cuerpo inválido.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 400
+                message: "Validation failed"
+        '404':
+          description: Servicio no encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 404
+                message: "Servicio no encontrado"
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 500
+                message: "Error interno del servidor"
+
+    delete:
+      tags: [ SERVICES ]
+      summary: Elimina un servicio
+      parameters:
+        - name: serviceId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: ID del servicio a eliminar.
+      responses:
+        '204':
+          description: Servicio eliminado correctamente (sin contenido en la respuesta).
+        '404':
+          description: Servicio no encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 404
+                message: "Servicio no encontrado"
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDto'
+              example:
+                code: 500
+                message: "Error interno del servidor"

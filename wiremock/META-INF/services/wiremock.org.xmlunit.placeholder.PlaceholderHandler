@@ -1,0 +1,4 @@
+wiremock.org.xmlunit.placeholder.IgnorePlaceholderHandler
+wiremock.org.xmlunit.placeholder.IsNumberPlaceholderHandler
+wiremock.org.xmlunit.placeholder.MatchesRegexPlaceholderHandler
+wiremock.org.xmlunit.placeholder.IsDateTimePlaceholderHandler

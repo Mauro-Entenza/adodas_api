@@ -1,0 +1,77 @@
+2026-02-02 19:41:49,048 INFO o.h.v.i.u.Version {<clinit>} [background-preinit] HV000001: Hibernate Validator 8.0.1.Final
+2026-02-02 19:41:49,088 INFO o.s.b.StartupInfoLogger {logStarting} [main] Starting AdodasApiApplication using Java 21.0.1 with PID 9448 (C:\Users\mauro\Documents\Adodas\adodas_api\target\classes started by mauro in C:\Users\mauro\Documents\Adodas\adodas_api)
+2026-02-02 19:41:49,089 INFO o.s.b.SpringApplication {logStartupProfileInfo} [main] No active profile set, falling back to 1 default profile: "default"
+2026-02-02 19:41:49,752 INFO o.s.d.r.c.RepositoryConfigurationDelegate {registerRepositoriesIn} [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-02 19:41:49,840 INFO o.s.d.r.c.RepositoryConfigurationDelegate {registerRepositoriesIn} [main] Finished Spring Data repository scanning in 79 ms. Found 5 JPA repository interfaces.
+2026-02-02 19:41:50,423 INFO o.s.b.w.e.t.TomcatWebServer {initialize} [main] Tomcat initialized with port 8080 (http)
+2026-02-02 19:41:50,438 INFO o.a.j.l.DirectJDKLog {log} [main] Initializing ProtocolHandler ["http-nio-8080"]
+2026-02-02 19:41:50,441 INFO o.a.j.l.DirectJDKLog {log} [main] Starting service [Tomcat]
+2026-02-02 19:41:50,441 INFO o.a.j.l.DirectJDKLog {log} [main] Starting Servlet engine: [Apache Tomcat/10.1.33]
+2026-02-02 19:41:50,512 INFO o.a.j.l.DirectJDKLog {log} [main] Initializing Spring embedded WebApplicationContext
+2026-02-02 19:41:50,513 INFO o.s.b.w.s.c.ServletWebServerApplicationContext {prepareWebApplicationContext} [main] Root WebApplicationContext: initialization completed in 1392 ms
+2026-02-02 19:41:50,677 INFO o.h.j.i.u.LogHelper {logPersistenceUnitInformation} [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-02 19:41:50,772 INFO o.h.Version {logVersion} [main] HHH000412: Hibernate ORM core version 6.5.3.Final
+2026-02-02 19:41:50,826 INFO o.h.c.i.RegionFactoryInitiator {initiateService} [main] HHH000026: Second-level cache disabled
+2026-02-02 19:41:51,125 INFO o.s.o.j.p.SpringPersistenceUnitInfo {addTransformer} [main] No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-02 19:41:51,150 INFO c.z.h.HikariDataSource {getConnection} [main] HikariPool-1 - Starting...
+2026-02-02 19:41:51,242 INFO c.z.h.p.HikariPool {checkFailFast} [main] HikariPool-1 - Added connection org.mariadb.jdbc.Connection@b94703b
+2026-02-02 19:41:51,244 INFO c.z.h.HikariDataSource {getConnection} [main] HikariPool-1 - Start completed.
+2026-02-02 19:41:52,002 INFO o.h.e.t.j.p.i.JtaPlatformInitiator {initiateService} [main] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-02 19:41:52,089 INFO o.s.o.j.AbstractEntityManagerFactoryBean {buildNativeEntityManagerFactory} [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-02 19:41:52,352 INFO o.s.d.j.r.q.QueryEnhancerFactory {<clinit>} [main] Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-02 19:41:53,150 INFO o.a.j.l.DirectJDKLog {log} [main] Starting ProtocolHandler ["http-nio-8080"]
+2026-02-02 19:41:53,174 INFO o.s.b.w.e.t.TomcatWebServer {start} [main] Tomcat started on port 8080 (http) with context path '/'
+2026-02-02 19:41:53,181 INFO o.s.b.StartupInfoLogger {logStarted} [main] Started AdodasApiApplication in 4.543 seconds (process running for 7.215)
+2026-02-02 19:42:13,458 INFO o.a.j.l.DirectJDKLog {log} [http-nio-8080-exec-2] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-02 19:42:13,458 INFO o.s.w.s.FrameworkServlet {initServletBean} [http-nio-8080-exec-2] Initializing Servlet 'dispatcherServlet'
+2026-02-02 19:42:13,459 INFO o.s.w.s.FrameworkServlet {initServletBean} [http-nio-8080-exec-2] Completed initialization in 1 ms
+2026-02-02 19:42:13,550 INFO c.e.d.c.ItemController {addItem} [http-nio-8080-exec-2] BEGIN addItem
+2026-02-02 19:42:14,072 INFO c.e.d.c.ItemController {addItem} [http-nio-8080-exec-3] BEGIN addItem
+2026-02-02 19:42:14,953 INFO c.e.d.c.ItemController {addItem} [http-nio-8080-exec-4] BEGIN addItem
+2026-02-02 19:42:17,315 INFO c.e.d.c.ItemController {getItems} [http-nio-8080-exec-5] BEGIN getItems with filters: brand=null, category=null, price=null
+2026-02-02 19:42:24,754 INFO c.e.d.c.CustomerController {addCustomer} [http-nio-8080-exec-6] BEGIN addCustomer
+2026-02-02 19:42:25,437 INFO c.e.d.c.CustomerController {addCustomer} [http-nio-8080-exec-7] BEGIN addCustomer
+2026-02-02 19:42:26,053 INFO c.e.d.c.CustomerController {addCustomer} [http-nio-8080-exec-8] BEGIN addCustomer
+2026-02-02 19:42:30,268 INFO c.e.d.c.OrderController {addOrder} [http-nio-8080-exec-9] BEGIN addOrder
+2026-02-02 19:42:31,847 INFO c.e.d.c.OrderController {addOrder} [http-nio-8080-exec-10] BEGIN addOrder
+2026-02-02 19:42:32,505 INFO c.e.d.c.OrderController {addOrder} [http-nio-8080-exec-1] BEGIN addOrder
+2026-02-02 19:42:40,032 INFO c.e.d.c.OrderController {getOrders} [http-nio-8080-exec-2] BEGIN getOrders - delivered=true, minPrice=100.0, maxPrice=150.0
+2026-02-02 19:42:49,386 INFO c.e.d.c.OrderController {addOrder} [http-nio-8080-exec-3] BEGIN addOrder
+2026-02-02 19:42:50,240 INFO c.e.d.c.OrderController {addOrder} [http-nio-8080-exec-4] BEGIN addOrder
+2026-02-02 19:42:50,809 INFO c.e.d.c.OrderController {addOrder} [http-nio-8080-exec-5] BEGIN addOrder
+2026-02-02 19:42:55,231 INFO c.e.d.c.OrderController {modifyOrder} [http-nio-8080-exec-6] BEGIN modifyOrder
+2026-02-02 19:43:00,563 INFO c.e.d.c.OrderController {getOrders} [http-nio-8080-exec-7] BEGIN getOrders - delivered=null, minPrice=null, maxPrice=null
+2026-02-02 19:48:06,057 INFO c.e.d.c.RefundController {getRefunds} [http-nio-8080-exec-10] BEGIN getRefunds with filters: reason=null, minAmount=null, approved=null
+2026-02-02 19:48:09,729 INFO c.e.d.c.RefundController {addRefund} [http-nio-8080-exec-1] BEGIN addRefund
+2026-02-02 19:48:10,593 INFO c.e.d.c.RefundController {addRefund} [http-nio-8080-exec-2] BEGIN addRefund
+2026-02-02 19:48:11,209 INFO c.e.d.c.RefundController {addRefund} [http-nio-8080-exec-3] BEGIN addRefund
+2026-02-02 19:48:20,916 INFO c.e.d.c.ServiceController {getServices} [http-nio-8080-exec-4] BEGIN getServices with filters - name: null, minPrice: null, maxPrice: null, isActive: null
+2026-02-02 19:48:23,769 INFO c.e.d.c.ServiceController {addService} [http-nio-8080-exec-5] BEGIN addService
+2026-02-02 19:48:24,510 INFO c.e.d.c.ServiceController {addService} [http-nio-8080-exec-6] BEGIN addService
+2026-02-02 19:48:24,859 INFO c.e.d.c.ServiceController {addService} [http-nio-8080-exec-7] BEGIN addService
+2026-02-02 19:48:25,443 INFO c.e.d.c.ServiceController {addService} [http-nio-8080-exec-8] BEGIN addService
+2026-02-02 20:10:51,499 INFO c.e.d.c.ItemController {getItems} [http-nio-8080-exec-1] BEGIN getItems with filters: brand=null, category=null, price=null
+2026-02-02 20:10:53,924 INFO c.e.d.c.ItemController {getItems} [http-nio-8080-exec-2] BEGIN getItems with filters: brand=NIKE, category=null, price=null
+2026-02-02 20:10:56,516 INFO c.e.d.c.ItemController {getItems} [http-nio-8080-exec-3] BEGIN getItems with filters: brand=NIKE, category=SHOES, price=99.99
+2026-02-02 20:11:23,575 INFO c.e.d.c.OrderController {addOrder} [http-nio-8080-exec-4] BEGIN addOrder
+2026-02-02 20:11:24,689 INFO c.e.d.c.OrderController {addOrder} [http-nio-8080-exec-5] BEGIN addOrder
+2026-02-02 20:11:25,383 INFO c.e.d.c.OrderController {addOrder} [http-nio-8080-exec-6] BEGIN addOrder
+2026-02-02 20:11:35,367 INFO c.e.d.c.OrderController {getOrders} [http-nio-8080-exec-7] BEGIN getOrders - delivered=null, minPrice=null, maxPrice=null
+2026-02-02 20:20:59,205 INFO c.e.d.c.CustomerController {addCustomer} [http-nio-8080-exec-10] BEGIN addCustomer
+2026-02-02 20:21:12,664 INFO c.e.d.c.ItemController {getItems} [http-nio-8080-exec-1] BEGIN getItems with filters: brand=null, category=null, price=null
+2026-02-02 20:21:25,932 INFO c.e.d.c.OrderController {addOrder} [http-nio-8080-exec-2] BEGIN addOrder
+2026-02-02 20:21:34,109 INFO c.e.d.c.OrderController {getOrders} [http-nio-8080-exec-3] BEGIN getOrders - delivered=null, minPrice=null, maxPrice=null
+2026-02-02 20:23:05,113 INFO c.e.d.c.OrderController {getOrders} [http-nio-8080-exec-6] BEGIN getOrders - delivered=true, minPrice=null, maxPrice=null
+2026-02-02 20:23:18,201 INFO c.e.d.c.OrderController {getOrders} [http-nio-8080-exec-7] BEGIN getOrders - delivered=true, minPrice=19000.0, maxPrice=null
+2026-02-02 20:23:25,988 INFO c.e.d.c.OrderController {getOrders} [http-nio-8080-exec-8] BEGIN getOrders - delivered=true, minPrice=null, maxPrice=null
+2026-02-02 20:23:38,511 INFO c.e.d.c.OrderController {getOrders} [http-nio-8080-exec-9] BEGIN getOrders - delivered=true, minPrice=10000.0, maxPrice=null
+2026-02-02 20:23:58,106 INFO c.e.d.c.OrderController {getOrders} [http-nio-8080-exec-10] BEGIN getOrders - delivered=true, minPrice=10000.0, maxPrice=10124.0
+2026-02-02 20:24:05,241 INFO c.e.d.c.OrderController {getOrders} [http-nio-8080-exec-1] BEGIN getOrders - delivered=true, minPrice=10000.0, maxPrice=10123.0
+2026-02-02 20:24:18,570 INFO c.e.d.c.RefundController {addRefund} [http-nio-8080-exec-2] BEGIN addRefund
+2026-02-02 20:24:29,019 INFO c.e.d.c.RefundController {addRefund} [http-nio-8080-exec-3] BEGIN addRefund
+2026-02-02 20:24:36,893 INFO c.e.d.c.OrderController {getOrders} [http-nio-8080-exec-4] BEGIN getOrders - delivered=null, minPrice=null, maxPrice=null
+2026-02-02 20:24:47,303 INFO c.e.d.c.RefundController {addRefund} [http-nio-8080-exec-5] BEGIN addRefund
+2026-02-02 20:24:52,637 INFO c.e.d.c.RefundController {getRefunds} [http-nio-8080-exec-6] BEGIN getRefunds with filters: reason=null, minAmount=null, approved=null
+2026-02-02 20:26:35,086 INFO o.s.o.j.AbstractEntityManagerFactoryBean {destroy} [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-02 20:26:35,088 INFO c.z.h.HikariDataSource {close} [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2026-02-02 20:26:35,090 INFO c.z.h.HikariDataSource {close} [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.

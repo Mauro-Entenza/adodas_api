@@ -6,82 +6,106 @@ import com.example.demo.exception.CustomerNotFoundException;
 import com.example.demo.repository.CustomerRepository;
 import com.example.demo.service.CustomerService;
 import jakarta.persistence.criteria.Predicate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
-  @Autowired
-  private CustomerRepository customerRepository;
+  private final CustomerRepository customerRepository;
+  private final ModelMapper modelMapper;
 
-  @Autowired
-  private ModelMapper modelMapper;
+  public CustomerServiceImpl(CustomerRepository customerRepository, ModelMapper modelMapper) {
+    this.customerRepository = customerRepository;
+    this.modelMapper = modelMapper;
+  }
 
   @Override
   public List<CustomerDto> findAll() {
-    return this.modelMapper.map(this.customerRepository.findAll(),
+    return modelMapper.map(
+        customerRepository.findAll(),
         new TypeToken<List<CustomerDto>>() {
-        }.getType());
+        }.getType()
+    );
   }
 
   @Override
   public CustomerDto addCustomer(CustomerDto customerDto) {
-    Customer customer = this.modelMapper.map(customerDto, Customer.class);
+    Customer customer = modelMapper.map(customerDto, Customer.class);
     customer = customerRepository.save(customer);
-    return this.modelMapper.map(customer, CustomerDto.class);
+    return modelMapper.map(customer, CustomerDto.class);
   }
 
   @Override
   public CustomerDto modify(long customerId, CustomerDto customerDto)
       throws CustomerNotFoundException {
-    this.customerRepository.findById(customerId).orElseThrow(CustomerNotFoundException::new);
-    return this.addCustomer(customerDto);
+
+    Customer existingCustomer = customerRepository.findById(customerId)
+        .orElseThrow(CustomerNotFoundException::new);
+
+    customerDto.setId(existingCustomer.getId());
+    Customer customer = modelMapper.map(customerDto, Customer.class);
+    customer = customerRepository.save(customer);
+
+    return modelMapper.map(customer, CustomerDto.class);
   }
 
   @Override
-  public List<CustomerDto> searchCustomers(String name, String email) {
-    return null;
-  }
+  public CustomerDto patchCustomer(long customerId, Map<String, Object> updates)
+      throws CustomerNotFoundException {
 
+    Customer customer = customerRepository.findById(customerId)
+        .orElseThrow(CustomerNotFoundException::new);
+
+    updates.forEach((fieldName, value) -> {
+      try {
+        var field = Customer.class.getDeclaredField(fieldName);
+        field.setAccessible(true);
+        field.set(customer, value);
+      } catch (NoSuchFieldException | IllegalAccessException e) {
+        throw new RuntimeException("Invalid field: " + fieldName);
+      }
+    });
+
+    Customer updatedCustomer = customerRepository.save(customer);
+    return modelMapper.map(updatedCustomer, CustomerDto.class);
+  }
 
   @Override
   public void deleteCustomer(long customerId) throws CustomerNotFoundException {
-    this.customerRepository.findById(customerId).orElseThrow(CustomerNotFoundException::new);
-    this.customerRepository.deleteById(customerId);
+    customerRepository.findById(customerId)
+        .orElseThrow(CustomerNotFoundException::new);
+    customerRepository.deleteById(customerId);
   }
 
+  // ------------------ NUEVO MÉTODO DE FILTROS ------------------
   @Override
-  public List<CustomerDto> searchCustomers(String name, String email, String surname) {
-    Specification<Customer> specification = (root, query, criteriaBuilder) -> {
-      Predicate predicate = criteriaBuilder.conjunction();
+  public List<CustomerDto> findByFilters(String name, String email, String surname) {
+    Specification<Customer> spec = (root, query, cb) -> {
+      List<Predicate> predicates = new ArrayList<>();
 
       if (name != null && !name.isEmpty()) {
-        predicate = criteriaBuilder.and(predicate,
-            criteriaBuilder.like(root.get("name"), "%" + name + "%"));
+        predicates.add(cb.like(cb.lower(root.get("name")), "%" + name.toLowerCase() + "%"));
       }
 
       if (email != null && !email.isEmpty()) {
-        predicate = criteriaBuilder.and(predicate,
-            criteriaBuilder.like(root.get("email"), "%" + email + "%"));
+        predicates.add(cb.like(cb.lower(root.get("email")), "%" + email.toLowerCase() + "%"));
       }
 
       if (surname != null && !surname.isEmpty()) {
-        predicate = criteriaBuilder.and(predicate,
-            criteriaBuilder.like(root.get("surname"), "%" + surname + "%"));
+        predicates.add(cb.like(cb.lower(root.get("surname")), "%" + surname.toLowerCase() + "%"));
       }
 
-      return predicate;
+      return predicates.isEmpty() ? cb.conjunction() : cb.and(predicates.toArray(new Predicate[0]));
     };
 
-    return customerRepository.findAll(specification).stream()
+    return customerRepository.findAll(spec).stream()
         .map(customer -> modelMapper.map(customer, CustomerDto.class))
         .toList();
   }
-
 }
-

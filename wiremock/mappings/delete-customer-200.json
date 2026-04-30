@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "DELETE",
+    "url": "/customers/1"
+  },
+  "response": {
+    "status": 204,
+    "body": "",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

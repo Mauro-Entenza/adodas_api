@@ -1,0 +1,12 @@
+{
+  "request": {
+    "method": "DELETE",
+    "urlPattern": "/orders/2"
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "message": "Order deleted successfully"
+    }
+  }
+}

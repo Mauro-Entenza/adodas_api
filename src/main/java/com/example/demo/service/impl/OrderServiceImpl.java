@@ -1,120 +1,173 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.domain.dto.OrderDto;
+import com.example.demo.domain.entity.Customer;
 import com.example.demo.domain.entity.Item;
 import com.example.demo.domain.entity.Order;
 import com.example.demo.exception.OrderNotFoundException;
+import com.example.demo.repository.CustomerRepository;
 import com.example.demo.repository.ItemRepository;
 import com.example.demo.repository.OrderRepository;
 import com.example.demo.service.OrderService;
 import jakarta.persistence.criteria.Predicate;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class OrderServiceImpl implements OrderService {
 
-  @Autowired
-  private OrderRepository orderRepository;
+  private final OrderRepository orderRepository;
+  private final ItemRepository itemRepository;
+  private final CustomerRepository customerRepository;
+  private final ModelMapper modelMapper;
 
-  @Autowired
-  private ModelMapper modelMapper;
-
-  @Autowired
-  private ItemRepository itemRepository;
+  public OrderServiceImpl(OrderRepository orderRepository,
+      ItemRepository itemRepository,
+      CustomerRepository customerRepository,
+      ModelMapper modelMapper) {
+    this.orderRepository = orderRepository;
+    this.itemRepository = itemRepository;
+    this.customerRepository = customerRepository;
+    this.modelMapper = modelMapper;
+  }
 
   @Override
+  @Transactional(readOnly = true)
   public List<OrderDto> findAll() {
-    Iterable<Order> orderList = this.orderRepository.findAll();
-    List<OrderDto> orderDtoList = new ArrayList<>();
-    for (Order order : orderList) {
-      OrderDto orderDto = this.modelMapper.map(order, OrderDto.class);
-      List<Long> itemIds = new ArrayList<>();
-      for (Item item : order.getItemIds()) {
-        itemIds.add(item.getId());
-      }
-      orderDto.setItemIds(itemIds);
-      orderDtoList.add(orderDto);
-    }
-    return orderDtoList;
+    return orderRepository.findAll().stream()
+        .map(this::convertToDto)
+        .collect(Collectors.toList());
   }
 
   @Override
+  @Transactional(readOnly = true)
+  public List<OrderDto> findByFilters(Boolean delivered, Float minPrice, Float maxPrice) {
+    Specification<Order> spec = (root, query, cb) -> {
+      List<Predicate> predicates = new ArrayList<>();
+
+      if (delivered != null) {
+        predicates.add(cb.equal(root.get("isDelivered"), delivered)); // <- aquí
+      }
+
+      if (minPrice != null && minPrice > 0) {
+        predicates.add(cb.ge(root.get("orderPrice"), minPrice));
+      }
+
+      if (maxPrice != null && maxPrice > 0) {
+        predicates.add(cb.le(root.get("orderPrice"), maxPrice));
+      }
+
+      return predicates.isEmpty() ? cb.conjunction() : cb.and(predicates.toArray(new Predicate[0]));
+    };
+
+    return orderRepository.findAll(spec).stream()
+        .map(this::convertToDto)
+        .collect(Collectors.toList());
+  }
+
+  @Override
+  @Transactional
   public OrderDto addOrder(OrderDto orderDto) {
-    try {
-      Order order = this.modelMapper.map(orderDto, Order.class);
-      List<Item> itemList = new ArrayList<>();
-      for (Long id : orderDto.getItemIds()) {
-        itemList.add(this.itemRepository.findById(id).orElse(null));
-      }
-      order.setItemIds(itemList);
-      order = orderRepository.save(order);
-
-      return orderDto;
-    } catch (IllegalArgumentException e) {
-      throw new IllegalStateException("Error while mapping or saving the order: " + e.getMessage(),
-          e);
-    } catch (Exception e) {
-      throw new IllegalStateException("Unexpected error while adding the order: " + e.getMessage(),
-          e);
+    List<Item> items = itemRepository.findAllById(orderDto.getItemIds());
+    if (items.size() != orderDto.getItemIds().size()) {
+      throw new IllegalArgumentException("Uno o más items no existen");
     }
+
+    Customer customer = customerRepository.findById(orderDto.getCustomerId())
+        .orElseThrow(() -> new IllegalArgumentException("Cliente no encontrado"));
+
+    Order order = new Order();
+    order.setCustomer(customer);
+    order.setCustomerNotes(orderDto.getCustomerNotes());
+    order.setOrderPrice(orderDto.getOrderPrice());
+    order.setDelivered(orderDto.isDelivered());
+    order.setOrderDate(orderDto.getOrderDate());
+
+    Order savedOrder = orderRepository.save(order);
+
+    items.forEach(item -> {
+      item.setOrder(savedOrder);
+      itemRepository.save(item);
+    });
+
+    return convertToDto(savedOrder);
   }
 
-
   @Override
+  @Transactional
   public OrderDto modify(long orderId, OrderDto orderDto) throws OrderNotFoundException {
-    Order existingOrder = this.orderRepository.findById(orderId)
+    Order existingOrder = orderRepository.findById(orderId)
         .orElseThrow(OrderNotFoundException::new);
 
-    existingOrder.setOrderPrice(orderDto.getOrderPrice());
+    List<Item> items = itemRepository.findAllById(orderDto.getItemIds());
+    if (items.size() != orderDto.getItemIds().size()) {
+      throw new IllegalArgumentException("Uno o más items no existen");
+    }
+
     existingOrder.setCustomerNotes(orderDto.getCustomerNotes());
-    existingOrder.setOrderDate(orderDto.getOrderDate());
+    existingOrder.setOrderPrice(orderDto.getOrderPrice());
     existingOrder.setDelivered(orderDto.isDelivered());
-    Order updatedOrder = this.orderRepository.save(existingOrder);
-    return this.modelMapper.map(updatedOrder, OrderDto.class);
+    existingOrder.setOrderDate(orderDto.getOrderDate());
+
+    existingOrder.getItems().clear();
+
+    items.forEach(item -> {
+      item.setOrder(existingOrder);
+      itemRepository.save(item);
+    });
+
+    return convertToDto(orderRepository.save(existingOrder));
   }
 
   @Override
-  public List<OrderDto> searchOrders(String status, Float minPrice, Date maxPrice) {
-    return null;
+  @Transactional
+  public OrderDto patchOrder(long orderId, Map<String, Object> updates)
+      throws OrderNotFoundException {
+    Order existingOrder = orderRepository.findById(orderId)
+        .orElseThrow(OrderNotFoundException::new);
+
+    if (updates.containsKey("customerNotes") && updates.get("customerNotes") != null) {
+      existingOrder.setCustomerNotes((String) updates.get("customerNotes"));
+    }
+    if (updates.containsKey("orderPrice") && updates.get("orderPrice") != null) {
+      existingOrder.setOrderPrice(((Number) updates.get("orderPrice")).floatValue());
+    }
+    if (updates.containsKey("delivered") && updates.get("delivered") != null) {
+      existingOrder.setDelivered((Boolean) updates.get("delivered"));
+    }
+    if (updates.containsKey("orderDate") && updates.get("orderDate") != null) {
+      existingOrder.setOrderDate(LocalDate.parse((String) updates.get("orderDate")));
+    }
+
+    return convertToDto(orderRepository.save(existingOrder));
   }
 
   @Override
-  public List<OrderDto> getOrdersByFilter(Long customerId, LocalDate orderDate, Float minPrice) {
-    return null;
-  }
-
-  @Override
+  @Transactional
   public void deleteOrder(long orderId) throws OrderNotFoundException {
-    this.orderRepository.findById(orderId).orElseThrow(OrderNotFoundException::new);
-    this.orderRepository.deleteById(orderId);
+    if (!orderRepository.existsById(orderId)) {
+      throw new OrderNotFoundException();
+    }
+    orderRepository.deleteById(orderId);
   }
 
-  @Override
-  public List<OrderDto> searchOrders(Boolean isDelivered, Float minPrice, LocalDate orderDate) {
-    return orderRepository.findAll((root, query, criteriaBuilder) -> {
-          Predicate predicate = criteriaBuilder.conjunction();
-          if (isDelivered != null) {
-            predicate = criteriaBuilder.and(predicate,
-                criteriaBuilder.equal(root.get("isDelivered"), isDelivered));
-          }
-          if (minPrice != null) {
-            predicate = criteriaBuilder.and(predicate,
-                criteriaBuilder.greaterThanOrEqualTo(root.get("orderPrice"), minPrice));
-          }
-          if (orderDate != null) {
-            predicate = criteriaBuilder.and(predicate,
-                criteriaBuilder.equal(root.get("orderDate"), orderDate));
-          }
-          return predicate;
-        }).stream()
-        .map(order -> modelMapper.map(order, OrderDto.class))
-        .toList();
-  }
+  private OrderDto convertToDto(Order order) {
+    OrderDto dto = modelMapper.map(order, OrderDto.class);
 
+    List<Long> itemIds = itemRepository.findIdsByOrder(order.getId());
+    dto.setItemIds(itemIds);
+
+    if (order.getCustomer() != null) {
+      dto.setCustomerId(order.getCustomer().getId());
+    }
+
+    return dto;
+  }
 }

@@ -1,0 +1,24 @@
+2026-04-10 18:14:19,219 INFO o.h.v.i.u.Version {<clinit>} [background-preinit] HV000001: Hibernate Validator 8.0.1.Final
+2026-04-10 18:14:19,264 INFO o.s.b.StartupInfoLogger {logStarting} [main] Starting AdodasApiApplication using Java 21.0.1 with PID 8532 (C:\Users\mauro\Documents\Adodas\adodas_api\target\classes started by mauro in C:\Users\mauro\Documents\Adodas\adodas_api)
+2026-04-10 18:14:19,264 INFO o.s.b.SpringApplication {logStartupProfileInfo} [main] No active profile set, falling back to 1 default profile: "default"
+2026-04-10 18:14:19,847 INFO o.s.d.r.c.RepositoryConfigurationDelegate {registerRepositoriesIn} [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-10 18:14:19,911 INFO o.s.d.r.c.RepositoryConfigurationDelegate {registerRepositoriesIn} [main] Finished Spring Data repository scanning in 57 ms. Found 5 JPA repository interfaces.
+2026-04-10 18:14:20,400 INFO o.s.b.w.e.t.TomcatWebServer {initialize} [main] Tomcat initialized with port 8080 (http)
+2026-04-10 18:14:20,412 INFO o.a.j.l.DirectJDKLog {log} [main] Initializing ProtocolHandler ["http-nio-8080"]
+2026-04-10 18:14:20,413 INFO o.a.j.l.DirectJDKLog {log} [main] Starting service [Tomcat]
+2026-04-10 18:14:20,414 INFO o.a.j.l.DirectJDKLog {log} [main] Starting Servlet engine: [Apache Tomcat/10.1.33]
+2026-04-10 18:14:20,468 INFO o.a.j.l.DirectJDKLog {log} [main] Initializing Spring embedded WebApplicationContext
+2026-04-10 18:14:20,469 INFO o.s.b.w.s.c.ServletWebServerApplicationContext {prepareWebApplicationContext} [main] Root WebApplicationContext: initialization completed in 1169 ms
+2026-04-10 18:14:20,667 INFO o.h.j.i.u.LogHelper {logPersistenceUnitInformation} [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-04-10 18:14:20,743 INFO o.h.Version {logVersion} [main] HHH000412: Hibernate ORM core version 6.5.3.Final
+2026-04-10 18:14:20,787 INFO o.h.c.i.RegionFactoryInitiator {initiateService} [main] HHH000026: Second-level cache disabled
+2026-04-10 18:14:21,028 INFO o.s.o.j.p.SpringPersistenceUnitInfo {addTransformer} [main] No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-10 18:14:21,051 INFO c.z.h.HikariDataSource {getConnection} [main] HikariPool-1 - Starting...
+2026-04-10 18:14:21,136 INFO c.z.h.p.HikariPool {checkFailFast} [main] HikariPool-1 - Added connection org.mariadb.jdbc.Connection@6cceb281
+2026-04-10 18:14:21,137 INFO c.z.h.HikariDataSource {getConnection} [main] HikariPool-1 - Start completed.
+2026-04-10 18:14:21,837 INFO o.h.e.t.j.p.i.JtaPlatformInitiator {initiateService} [main] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-10 18:14:21,919 INFO o.s.o.j.AbstractEntityManagerFactoryBean {buildNativeEntityManagerFactory} [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-10 18:14:22,181 INFO o.s.d.j.r.q.QueryEnhancerFactory {<clinit>} [main] Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-10 18:14:23,106 INFO o.a.j.l.DirectJDKLog {log} [main] Starting ProtocolHandler ["http-nio-8080"]
+2026-04-10 18:14:23,127 INFO o.s.b.w.e.t.TomcatWebServer {start} [main] Tomcat started on port 8080 (http) with context path '/'
+2026-04-10 18:14:23,133 INFO o.s.b.StartupInfoLogger {logStarted} [main] Started AdodasApiApplication in 4.298 seconds (process running for 4.594)

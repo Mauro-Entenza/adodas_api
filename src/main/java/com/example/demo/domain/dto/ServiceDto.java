@@ -32,4 +32,7 @@ public class ServiceDto {
   private Long customerId;
 
   private String notes;
+
+  public void setIsActive(boolean b) {
+  }
 }

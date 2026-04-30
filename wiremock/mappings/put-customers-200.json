@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "PUT",
+    "url": "/customers/1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "id": 1,
+      "name": "Updated Name",
+      "surname": "Doe Updated",
+      "dni": "12345678A",
+      "email": "john.updated@example.com",
+      "emailConfirmed": true,
+      "registerDate": "2024-01-01"
+    }
+  }
+}

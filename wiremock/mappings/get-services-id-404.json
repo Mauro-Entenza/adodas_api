@@ -1,0 +1,12 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/services/99"
+  },
+  "response": {
+    "status": 404,
+    "jsonBody": {
+      "message": "Service not found"
+    }
+  }
+}

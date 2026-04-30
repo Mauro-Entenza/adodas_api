@@ -1,12 +1,16 @@
 package com.example.demo.exception;
 
-public class ServiceNotFoundException extends Exception {
+public class ServiceNotFoundException extends RuntimeException {
 
   public ServiceNotFoundException() {
-    super("This service does not exist");
+    super();
   }
 
   public ServiceNotFoundException(String message) {
     super(message);
+  }
+
+  public ServiceNotFoundException(String message, Throwable cause) {
+    super(message, cause);
   }
 }

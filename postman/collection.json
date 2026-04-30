@@ -1,0 +1,575 @@
+{
+  "info": {
+    "_postman_id": "7b94e77a-964c-47b7-82fd-22c035602bd7",
+    "name": "ServicesColl",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "39941724"
+  },
+  "item": [
+    {
+      "name": "Services Copy",
+      "item": [
+        {
+          "name": "POST add - OK (3)",
+          "item": [
+            {
+              "name": "add - OK #1",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const json = pm.response.json();",
+                      "",
+                      "const req = JSON.parse(pm.request.body.raw);",
+                      "",
+                      "pm.test('Status is 2xx', () => {",
+                      "    pm.expect(pm.response.code).to.be.within(200, 299);",
+                      "});",
+                      "",
+                      "pm.test('Response time < 2000ms', () => {",
+                      "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+                      "});",
+                      "",
+                      "pm.test('Body is JSON', () => {",
+                      "    pm.response.to.be.json;",
+                      "});",
+                      "",
+                      "pm.test('Has id', () => {",
+                      "    pm.expect(json.id).to.exist;",
+                      "});",
+                      "",
+                      "pm.test('Fields match request data', () => {",
+                      "    pm.expect(json.name).to.eql(req.name);",
+                      "    pm.expect(json.description).to.eql(req.description);",
+                      "    pm.expect(json.price).to.eql(req.price);",
+                      "    pm.expect(json.active).to.eql(req.active);",
+                      "    pm.expect(json.availableFrom).to.eql(req.availableFrom);",
+                      "    pm.expect(json.availableTo).to.eql(req.availableTo);",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{apiToken}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"name\": \"Limpieza\", \"description\": \"Servicio de limpieza\", \"price\": 100.0, \"active\": false, \"customerId\":\"1\", \"availableFrom\": \"2026-04-01\",\r\n\"availableTo\": \"2026-12-31\"}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/services",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "services"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "POST add - KO (3)",
+          "item": [
+            {
+              "name": "add - KO #1",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const json = pm.response.json();",
+                      "",
+                      "pm.test('Status is 4xx', () => {",
+                      "    pm.expect(pm.response.code).to.be.within(400, 499);",
+                      "});",
+                      "",
+                      "pm.test('Response time < 2000ms', () => {",
+                      "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+                      "});",
+                      "",
+                      "pm.test('Body is JSON', () => {",
+                      "    pm.response.to.be.json;",
+                      "});",
+                      "",
+                      "pm.test('Has error structure', () => {",
+                      "    pm.expect(json).to.have.property('code');",
+                      "    pm.expect(json).to.have.property('message');",
+                      "    pm.expect(json).to.have.property('errors');",
+                      "});",
+                      "",
+                      "pm.test('Validation error contains field name', () => {",
+                      "    pm.expect(json.errors[0]).to.include('name');",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{apiToken}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"name\": null, \"description\": \"Sin nombre\", \"price\": 10.0, \"active\": true}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/services",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "services"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "PUT modify/{id} - OK (3)",
+          "item": [
+            {
+              "name": "modify - OK #1",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const json = pm.response.json();",
+                      "",
+                      "pm.test('Status is 2xx', () => {",
+                      "    pm.expect(pm.response.code).to.be.within(200, 299);",
+                      "});",
+                      "",
+                      "pm.test('Response time < 2000ms', () => {",
+                      "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+                      "});",
+                      "",
+                      "pm.test('Body is JSON', () => {",
+                      "    pm.response.to.be.json;",
+                      "});",
+                      "",
+                      "pm.test('Has structure', () => {",
+                      "    pm.expect(json).to.have.property('id');",
+                      "    pm.expect(json).to.have.property('name');",
+                      "    pm.expect(json).to.have.property('description');",
+                      "    pm.expect(json).to.have.property('price');",
+                      "});",
+                      "",
+                      "pm.test('Values updated correctly', () => {",
+                      "    pm.expect(json.name).to.eql(\"Limpieza\");",
+                      "    pm.expect(json.description).to.eql(\"Servicio de limpieza\");",
+                      "    pm.expect(json.price).to.eql(10.0);",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{apiToken}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"name\": \"Limpieza\", \"description\": \"Servicio de limpieza\", \"price\": 10.0, \"customerId\":\"1\", \"availableFrom\": \"2027-04-01\",\r\n\"availableTo\": \"2029-12-31\"}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/services/15",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "services",
+                    "15"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "PUT modify/{id} - KO (3)",
+          "item": [
+            {
+              "name": "modify - KO #1 (bad body)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const json = pm.response.json();",
+                      "",
+                      "pm.test('Status is 400', () => {",
+                      "    pm.expect(pm.response.code).to.equal(400);",
+                      "});",
+                      "",
+                      "pm.test('Response time < 2000ms', () => {",
+                      "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+                      "});",
+                      "",
+                      "pm.test('Body is JSON', () => {",
+                      "    pm.response.to.be.json;",
+                      "});",
+                      "",
+                      "pm.test('Has error structure', () => {",
+                      "    pm.expect(json).to.have.property('code');",
+                      "    pm.expect(json).to.have.property('message');",
+                      "    pm.expect(json).to.have.property('errors');",
+                      "});",
+                      "",
+                      "pm.test('Validation error contains name field', () => {",
+                      "    pm.expect(json.errors[0]).to.include('name');",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{apiToken}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"name\": null, \"description\": \"Sin nombre\", \"price\": 10.0, \"active\": true}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/services/999999",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "services",
+                    "999999"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "DELETE /{id} - OK (3)",
+          "item": [
+            {
+              "name": "delete - OK #1",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status is 204', () => {",
+                      "    pm.expect(pm.response.code).to.eql(204);",
+                      "});",
+                      "",
+                      "pm.test('Response time < 2000ms', () => {",
+                      "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+                      "});",
+                      "",
+                      "pm.test('Body is empty', () => {",
+                      "    pm.expect(pm.response.text()).to.be.empty;",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{apiToken}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/services/4",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "services",
+                    "4"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "DELETE /{id} - KO (3)",
+          "item": [
+            {
+              "name": "delete - KO #1 (not found)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status is 4xx', () => pm.response.code >= 400 && pm.response.code < 500);",
+                      "pm.test('Response time < 2000ms', () => pm.response.responseTime < 2000);",
+                      "pm.test('Body is JSON', () => { try { pm.response.json(); pm.expect(true).to.be.true; } catch(e){ pm.expect.fail('Not JSON'); } });",
+                      "pm.test('404', ()=> pm.expect(pm.response.code).to.eql(404));",
+                      "const json = pm.response.json();",
+                      "",
+                      "pm.test('Error structure is correct', () => {",
+                      "    pm.expect(json).to.have.property('code');",
+                      "    pm.expect(json).to.have.property('message');",
+                      "    pm.expect(json).to.have.property('errors');",
+                      "});",
+                      "",
+                      "pm.test('Error message is correct', () => {",
+                      "    pm.expect(json.message).to.include('Service not found');",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{apiToken}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/services/999999",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "services",
+                    "999999"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "GET /search - OK (3)",
+          "item": [
+            {
+              "name": "search - OK #1",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 2xx', () => pm.response.code >= 200 && pm.response.code < 300);",
+                      "pm.test('Response time < 2000ms', () => pm.response.responseTime < 2000);",
+                      "pm.test('Body is JSON', () => { try { pm.response.json(); pm.expect(true).to.be.true; } catch(e){ pm.expect.fail('Not JSON'); } });",
+                      "pm.test('Returns an array', ()=> Array.isArray(pm.response.json()));"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{apiToken}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/services/search?name=Limpieza",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "services",
+                    "search"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "Limpieza"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "GET /search - KO (3)",
+          "item": [
+            {
+              "name": "search - KO #1",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const json = pm.response.json();",
+                      "",
+                      "pm.test('Status is 500', () => {",
+                      "    pm.expect(pm.response.code).to.equal(500);",
+                      "});",
+                      "",
+                      "pm.test('Response time < 2000ms', () => {",
+                      "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+                      "});",
+                      "",
+                      "pm.test('Body is JSON', () => {",
+                      "    pm.response.to.be.json;",
+                      "});",
+                      "",
+                      "pm.test('Has error structure', () => {",
+                      "    pm.expect(json).to.have.property('code');",
+                      "    pm.expect(json).to.have.property('message');",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "packages": {},
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{apiToken}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "valid",
+                    "value": "false",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/services/",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "services",
+                    ""
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

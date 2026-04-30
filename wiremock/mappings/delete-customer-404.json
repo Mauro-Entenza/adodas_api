@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "DELETE",
+    "url": "/customers/999"
+  },
+  "response": {
+    "status": 404,
+    "body": "{\"error\": \"Customer not found\"}",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

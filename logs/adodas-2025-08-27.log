@@ -1,0 +1,35 @@
+2025-08-27 19:40:57,562 INFO o.h.v.i.u.Version {<clinit>} [background-preinit] HV000001: Hibernate Validator 8.0.1.Final
+2025-08-27 19:40:57,615 INFO o.s.b.StartupInfoLogger {logStarting} [main] Starting AdodasApiApplication using Java 21.0.1 with PID 10256 (C:\Users\mauro\Documents\Adodas\adodas_api\target\classes started by mauro in C:\Users\mauro\Documents\Adodas\adodas_api)
+2025-08-27 19:40:57,616 INFO o.s.b.SpringApplication {logStartupProfileInfo} [main] No active profile set, falling back to 1 default profile: "default"
+2025-08-27 19:40:58,286 INFO o.s.d.r.c.RepositoryConfigurationDelegate {registerRepositoriesIn} [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-08-27 19:40:58,367 INFO o.s.d.r.c.RepositoryConfigurationDelegate {registerRepositoriesIn} [main] Finished Spring Data repository scanning in 73 ms. Found 5 JPA repository interfaces.
+2025-08-27 19:40:58,940 INFO o.s.b.w.e.t.TomcatWebServer {initialize} [main] Tomcat initialized with port 8080 (http)
+2025-08-27 19:40:58,951 INFO o.a.j.l.DirectJDKLog {log} [main] Initializing ProtocolHandler ["http-nio-8080"]
+2025-08-27 19:40:58,954 INFO o.a.j.l.DirectJDKLog {log} [main] Starting service [Tomcat]
+2025-08-27 19:40:58,954 INFO o.a.j.l.DirectJDKLog {log} [main] Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-08-27 19:40:59,011 INFO o.a.j.l.DirectJDKLog {log} [main] Initializing Spring embedded WebApplicationContext
+2025-08-27 19:40:59,012 INFO o.s.b.w.s.c.ServletWebServerApplicationContext {prepareWebApplicationContext} [main] Root WebApplicationContext: initialization completed in 1358 ms
+2025-08-27 19:40:59,040 INFO c.z.h.HikariDataSource {getConnection} [main] HikariPool-1 - Starting...
+2025-08-27 19:40:59,287 INFO c.z.h.p.HikariPool {checkFailFast} [main] HikariPool-1 - Added connection conn0: url=jdbc:h2:file:~/adodas.db user=SA
+2025-08-27 19:40:59,289 INFO c.z.h.HikariDataSource {getConnection} [main] HikariPool-1 - Start completed.
+2025-08-27 19:40:59,299 INFO o.s.b.a.h.H2ConsoleAutoConfiguration {logDataSources} [main] H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:~/adodas.db'
+2025-08-27 19:40:59,463 INFO o.h.j.i.u.LogHelper {logPersistenceUnitInformation} [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-08-27 19:40:59,601 INFO o.h.Version {logVersion} [main] HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-08-27 19:40:59,645 INFO o.h.c.i.RegionFactoryInitiator {initiateService} [main] HHH000026: Second-level cache disabled
+2025-08-27 19:40:59,974 INFO o.s.o.j.p.SpringPersistenceUnitInfo {addTransformer} [main] No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-08-27 19:41:00,016 WARN o.h.e.j.d.i.DialectFactoryImpl {constructDialect} [main] HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-08-27 19:41:00,834 INFO o.h.e.t.j.p.i.JtaPlatformInitiator {initiateService} [main] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-27 19:41:00,876 INFO o.s.o.j.AbstractEntityManagerFactoryBean {buildNativeEntityManagerFactory} [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-08-27 19:41:01,185 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration {openEntityManagerInViewInterceptor} [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-08-27 19:41:01,679 INFO o.a.j.l.DirectJDKLog {log} [main] Starting ProtocolHandler ["http-nio-8080"]
+2025-08-27 19:41:01,720 INFO o.s.b.w.e.t.TomcatWebServer {start} [main] Tomcat started on port 8080 (http) with context path '/'
+2025-08-27 19:41:01,730 INFO o.s.b.StartupInfoLogger {logStarted} [main] Started AdodasApiApplication in 4.748 seconds (process running for 8.056)
+2025-08-27 20:55:37,400 INFO o.a.j.l.DirectJDKLog {log} [http-nio-8080-exec-2] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-08-27 20:55:37,403 INFO o.s.w.s.FrameworkServlet {initServletBean} [http-nio-8080-exec-2] Initializing Servlet 'dispatcherServlet'
+2025-08-27 20:55:37,411 INFO o.s.w.s.FrameworkServlet {initServletBean} [http-nio-8080-exec-2] Completed initialization in 8 ms
+2025-08-27 20:55:37,633 INFO c.e.d.c.CustomerController {addCustomer} [http-nio-8080-exec-2] BEGIN addCustomer
+2025-08-27 20:55:48,949 INFO c.e.d.c.CustomerController {searchCustomers} [http-nio-8080-exec-3] BEGIN searchCustomers - name: Laura, email: null, surname: null
+2025-08-27 20:56:11,379 INFO c.e.d.c.CustomerController {searchCustomers} [http-nio-8080-exec-4] BEGIN searchCustomers - name: null, email: null, surname: null
+2025-08-27 20:56:32,823 INFO c.e.d.c.CustomerController {searchCustomers} [http-nio-8080-exec-5] BEGIN searchCustomers - name: null, email: null, surname: null
+2025-08-27 20:56:36,823 INFO c.e.d.c.CustomerController {searchCustomers} [http-nio-8080-exec-6] BEGIN searchCustomers - name: null, email: null, surname: null
+2025-08-27 20:56:51,248 WARN o.s.w.s.h.AbstractHandlerExceptionResolver {logException} [http-nio-8080-exec-7] Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]

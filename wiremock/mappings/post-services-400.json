@@ -1,0 +1,12 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/services/9999"
+  },
+  "response": {
+    "status": 400,
+    "jsonBody": {
+      "message": "Invalid service data"
+    }
+  }
+}

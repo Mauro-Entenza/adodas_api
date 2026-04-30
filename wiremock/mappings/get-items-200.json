@@ -1,0 +1,23 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/items"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": [
+      {
+        "id": 1,
+        "brand": "Nike",
+        "color": "Black",
+        "category": "SHOES",
+        "price": 120.5,
+        "isWaterproof": false,
+        "releaseDate": "2024-03-15"
+      }
+    ]
+  }
+}

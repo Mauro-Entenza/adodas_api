@@ -1,5 +1,6 @@
 package com.example.demo.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -27,5 +28,6 @@ public class RefundDto {
 
   private long customerId;
 
+  @JsonProperty("approved")
   private boolean isApproved;
 }

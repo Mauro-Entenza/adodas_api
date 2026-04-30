@@ -1,0 +1,23 @@
+{
+  "request": {
+    "method": "PUT",
+    "url": "/services/1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "id": 1,
+      "name": "Premium Cleaning",
+      "description": "Updated description",
+      "price": 55.0,
+      "availableFrom": "2024-06-01",
+      "availableTo": "2024-12-31",
+      "isActive": false,
+      "customerId": 1,
+      "notes": "Temporarily unavailable"
+    }
+  }
+}

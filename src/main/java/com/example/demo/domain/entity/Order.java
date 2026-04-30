@@ -26,17 +26,23 @@ public class Order {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
+
   @Column
   private String customerNotes;
+
   @Column
   private float orderPrice;
+
   @Column
   private boolean isDelivered;
+
   @Column
   private LocalDate orderDate;
+
   @ManyToOne
   @JoinColumn(name = "customer_id", nullable = false)
-  private Customer customerId;
+  private Customer customer;
+
   @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-  private List<Item> itemIds;
+  private List<Item> items;
 }
