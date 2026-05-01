@@ -55,7 +55,7 @@ jobs:
         run: mvn -B clean package -DskipTests
 
       - name: Start app
-        run: mvn spring-boot:run -Dspring-boot.run.profiles=dev
+        run: mvn spring-boot:run
 
       - name: Wait for app
         run: |
