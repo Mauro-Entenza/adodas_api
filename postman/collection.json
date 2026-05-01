@@ -70,7 +70,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\"name\": \"Limpieza\", \"description\": \"Servicio de limpieza\", \"price\": 100.0, \"active\": false, \"customerId\": \"{{customerId}}\", \"availableFrom\": \"2026-04-01\", \"availableTo\": \"2026-12-31\"}"
+                  "raw": "{\n  \"name\": \"Limpieza\",\n  \"description\": \"Servicio de limpieza\",\n  \"price\": 100.0,\n  \"active\": false,\n  \"customerId\": {{customerId}},\n  \"availableFrom\": \"2026-04-01\",\n  \"availableTo\": \"2026-12-31\"\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/services",
@@ -141,7 +141,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\"name\": null, \"description\": \"Sin nombre\", \"price\": 10.0, \"active\": true, \"customerId\": \"{{customerId}}\"}"
+                  "raw": "{\n  \"name\": null,\n  \"description\": \"Sin nombre\",\n  \"price\": 10.0,\n  \"active\": true,\n  \"customerId\": {{customerId}}\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/services",
@@ -228,7 +228,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\"name\": \"Limpieza\", \"description\": \"Servicio de limpieza\", \"price\": 10.0, \"customerId\": \"{{customerId}}\", \"availableFrom\": \"2027-04-01\", \"availableTo\": \"2029-12-31\"}"
+                  "raw": "{\n  \"name\": \"Limpieza\",\n  \"description\": \"Servicio de limpieza\",\n  \"price\": 10.0,\n  \"customerId\": {{customerId}},\n  \"availableFrom\": \"2027-04-01\",\n  \"availableTo\": \"2029-12-31\"\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/services/{{serviceId}}",
@@ -300,7 +300,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\"name\": null, \"description\": \"Sin nombre\", \"price\": 10.0, \"active\": true, \"customerId\": \"{{customerId}}\"}"
+                  "raw": "{\n  \"name\": null,\n  \"description\": \"Sin nombre\",\n  \"price\": 10.0,\n  \"active\": true,\n  \"customerId\": {{customerId}}\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/services/999999",
@@ -554,7 +554,7 @@
                   }
                 ],
                 "url": {
-                  "raw": "{{baseUrl}}/services/",
+                  "raw": "{{baseUrl}}/services",
                   "host": [
                     "{{baseUrl}}"
                   ],
