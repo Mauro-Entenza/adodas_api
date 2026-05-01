@@ -21416,3 +21416,17 @@ Unconditional classes:
 2026-05-01 20:07:42,466 INFO o.s.b.StartupInfoLogger {logStarted} [main] Started AdodasApiApplication in 4.128 seconds (process running for 4.366)
 2026-05-01 20:07:42,468 DEBUG o.s.b.a.ApplicationAvailabilityBean {onApplicationEvent} [main] Application availability state LivenessState changed to CORRECT
 2026-05-01 20:07:42,471 DEBUG o.s.b.a.ApplicationAvailabilityBean {onApplicationEvent} [main] Application availability state ReadinessState changed to ACCEPTING_TRAFFIC
+2026-05-01 20:18:55,784 DEBUG o.s.b.a.ApplicationAvailabilityBean {onApplicationEvent} [SpringApplicationShutdownHook] Application availability state ReadinessState changed from ACCEPTING_TRAFFIC to REFUSING_TRAFFIC
+2026-05-01 20:18:55,785 DEBUG o.s.c.s.AbstractApplicationContext {doClose} [SpringApplicationShutdownHook] Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@93cf163, started on Fri May 01 20:07:38 CEST 2026
+2026-05-01 20:18:55,787 DEBUG o.s.c.s.DefaultLifecycleProcessor$LifecycleGroup {stop} [SpringApplicationShutdownHook] Stopping beans in phase 2147483647
+2026-05-01 20:18:55,787 DEBUG o.s.c.s.DefaultLifecycleProcessor {lambda$doStop$4} [SpringApplicationShutdownHook] Bean 'applicationTaskExecutor' completed its stop procedure
+2026-05-01 20:18:55,787 DEBUG o.s.c.s.DefaultLifecycleProcessor$LifecycleGroup {stop} [SpringApplicationShutdownHook] Stopping beans in phase 2147482623
+2026-05-01 20:18:55,788 DEBUG o.s.c.s.DefaultLifecycleProcessor {lambda$doStop$4} [SpringApplicationShutdownHook] Bean 'webServerGracefulShutdown' completed its stop procedure
+2026-05-01 20:18:55,788 DEBUG o.s.c.s.DefaultLifecycleProcessor$LifecycleGroup {stop} [SpringApplicationShutdownHook] Stopping beans in phase 2147481599
+2026-05-01 20:18:55,795 DEBUG o.s.c.s.DefaultLifecycleProcessor {lambda$doStop$4} [SpringApplicationShutdownHook] Bean 'webServerStartStop' completed its stop procedure
+2026-05-01 20:18:55,795 DEBUG o.s.c.s.DefaultLifecycleProcessor$LifecycleGroup {stop} [SpringApplicationShutdownHook] Stopping beans in phase -2147483647
+2026-05-01 20:18:55,795 DEBUG o.s.c.s.DefaultLifecycleProcessor {lambda$doStop$4} [SpringApplicationShutdownHook] Bean 'springBootLoggingLifecycle' completed its stop procedure
+2026-05-01 20:18:55,795 DEBUG o.s.s.c.ExecutorConfigurationSupport {shutdown} [SpringApplicationShutdownHook] Shutting down ExecutorService 'applicationTaskExecutor'
+2026-05-01 20:18:55,796 INFO o.s.o.j.AbstractEntityManagerFactoryBean {destroy} [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-01 20:18:55,797 INFO c.z.h.HikariDataSource {close} [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2026-05-01 20:18:55,800 INFO c.z.h.HikariDataSource {close} [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
