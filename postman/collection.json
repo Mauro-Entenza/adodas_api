@@ -318,59 +318,6 @@
           ]
         },
         {
-          "name": "GET /search - OK (3)",
-          "item": [
-            {
-              "name": "search - OK #1",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "type": "text/javascript",
-                    "exec": [
-                      "pm.test('Status is 2xx', () => pm.response.code >= 200 && pm.response.code < 300);",
-                      "pm.test('Response time < 2000ms', () => pm.response.responseTime < 2000);",
-                      "pm.test('Body is JSON', () => { try { pm.response.json(); pm.expect(true).to.be.true; } catch(e){ pm.expect.fail('Not JSON'); } });",
-                      "pm.test('Returns an array', ()=> Array.isArray(pm.response.json()));"
-                    ]
-                  }
-                }
-              ],
-              "request": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer {{apiToken}}",
-                    "type": "text"
-                  },
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
-                "url": {
-                  "raw": "{{baseUrl}}/services/search?name=Limpieza",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "services",
-                    "search"
-                  ],
-                  "query": [
-                    {
-                      "key": "name",
-                      "value": "Limpieza"
-                    }
-                  ]
-                }
-              },
-              "response": []
-            }
-          ]
-        },
-        {
           "name": "DELETE /{id} - OK (3)",
           "item": [
             {
@@ -491,75 +438,6 @@
                   "path": [
                     "services",
                     "999999"
-                  ]
-                }
-              },
-              "response": []
-            }
-          ]
-        },
-        {
-          "name": "GET /search - KO (3)",
-          "item": [
-            {
-              "name": "search - KO #1",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "const json = pm.response.json();",
-                      "",
-                      "pm.test('Status is 500', () => {",
-                      "    pm.expect(pm.response.code).to.equal(500);",
-                      "});",
-                      "",
-                      "pm.test('Response time < 2000ms', () => {",
-                      "    pm.expect(pm.response.responseTime).to.be.below(2000);",
-                      "});",
-                      "",
-                      "pm.test('Body is JSON', () => {",
-                      "    pm.response.to.be.json;",
-                      "});",
-                      "",
-                      "pm.test('Has error structure', () => {",
-                      "    pm.expect(json).to.have.property('code');",
-                      "    pm.expect(json).to.have.property('message');",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "packages": {},
-                    "type": "text/javascript"
-                  }
-                }
-              ],
-              "request": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer {{apiToken}}",
-                    "type": "text"
-                  },
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
-                "url": {
-                  "raw": "{{baseUrl}}/services",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "services"
                   ]
                 }
               },
