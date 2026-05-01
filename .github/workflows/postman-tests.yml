@@ -51,6 +51,10 @@ jobs:
           echo "MariaDB did not start"
           exit 1
 
+      - name: Seed database
+        run: |
+          mysql -h 127.0.0.1 -P 3306 -uroot -padodas adodas < sql/seed.sql
+
       - name: Start app
         run: |
           nohup mvn spring-boot:run -Dspring-boot.run.profiles=dev > app.log 2>&1 &
