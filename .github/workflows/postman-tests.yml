@@ -23,6 +23,24 @@ jobs:
       - name: Build project
         run: mvn clean install -DskipTests
 
+      - name: Start MariaDB with Docker Compose
+        run: |
+          docker compose up -d mariadb
+
+      - name: Wait for MariaDB
+        run: |
+          for i in {1..30}; do
+            if docker compose exec -T mariadb mariadb-admin ping -uroot -padodas --silent; then
+              echo "MariaDB is ready!"
+              exit 0
+            fi
+            echo "Waiting for MariaDB..."
+            sleep 2
+          done
+          echo "MariaDB did not start"
+          docker compose logs mariadb
+          exit 1
+
       - name: Run API
         run: |
           nohup mvn spring-boot:run > app.log 2>&1 &
