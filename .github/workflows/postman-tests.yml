@@ -10,6 +10,20 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    services:
+      mariadb:
+        image: mariadb:10.11
+        env:
+          MARIADB_ROOT_PASSWORD: adodas
+          MARIADB_DATABASE: adodas
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mariadb-admin ping -h 127.0.0.1 -uroot -padodas --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=20
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -23,14 +37,10 @@ jobs:
       - name: Build project
         run: mvn clean install -DskipTests
 
-      - name: Start MariaDB with Docker Compose
-        run: |
-          docker compose up -d mariadb
-
       - name: Wait for MariaDB
         run: |
           for i in {1..30}; do
-            if docker compose exec -T mariadb mariadb-admin ping -uroot -padodas --silent; then
+            if mysqladmin ping -h 127.0.0.1 -P 3306 -uroot -padodas --silent; then
               echo "MariaDB is ready!"
               exit 0
             fi
@@ -38,12 +48,11 @@ jobs:
             sleep 2
           done
           echo "MariaDB did not start"
-          docker compose logs mariadb
           exit 1
 
-      - name: Run API
+      - name: Start app
         run: |
-          nohup mvn spring-boot:run > app.log 2>&1 &
+          nohup mvn spring-boot:run -Dspring-boot.run.profiles=dev > app.log 2>&1 &
           echo $! > app.pid
           sleep 20
 
@@ -54,7 +63,7 @@ jobs:
         run: |
           echo "Waiting for API on http://localhost:8081..."
           for i in {1..30}; do
-            if curl -fsS http://localhost:8081/health > /dev/null 2>&1; then
+            if curl -fsS http://localhost:8081/actuator/health > /dev/null 2>&1; then
               echo "API is up!"
               exit 0
             fi
@@ -62,6 +71,7 @@ jobs:
             sleep 5
           done
           echo "API did not start"
+          cat app.log
           exit 1
 
       - name: Set up Node
