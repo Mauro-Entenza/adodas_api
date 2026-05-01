@@ -84,7 +84,12 @@ jobs:
         run: npm install -g newman
 
       - name: Run Postman collection
-        run: newman run postman/collection.json --env-var baseUrl=http://localhost:8081 --reporters cli --verbose
+        run: |
+          newman run postman/collection.json \
+            --env-var baseUrl=http://localhost:8081 \
+            --env-var customerId=1 \
+            --reporters cli \
+            --verbose
 
       - name: Show logs if failed
         if: failure()
