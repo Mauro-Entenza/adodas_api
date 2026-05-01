@@ -55,9 +55,7 @@ jobs:
         run: mvn -B clean package -DskipTests
 
       - name: Start app
-        run: |
-          nohup mvn spring-boot:run -Dspring-boot.run.profiles=dev > app.log 2>&1 &
-          echo $! > app.pid
+        run: mvn spring-boot:run -Dspring-boot.run.profiles=dev
 
       - name: Wait for app
         run: |
@@ -70,7 +68,6 @@ jobs:
             sleep 2
           done
           echo "App did not start"
-          cat app.log
           exit 1
 
       - name: Run Postman tests
