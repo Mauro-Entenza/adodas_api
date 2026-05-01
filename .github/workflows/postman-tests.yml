@@ -23,15 +23,19 @@ jobs:
         run: mvn clean install -DskipTests
 
       - name: Run API
-        run: mvn spring-boot:run &
+        run: |
+          nohup mvn spring-boot:run > app.log 2>&1 &
 
       - name: Wait for API
         run: |
           echo "Waiting for API..."
-          for i in {1..30}; do
-            curl -s http://localhost:8081/services && break
+          for i in {1..40}; do
+            if curl -s http://localhost:8081/services > /dev/null; then
+              echo "API is up!"
+              break
+            fi
             echo "Waiting..."
-            sleep 2
+            sleep 3
           done
 
       - name: Set up Node
@@ -43,4 +47,8 @@ jobs:
         run: npm install -g newman
 
       - name: Run Postman collection
-        run: newman run postman/collection.json --env-var baseUrl=http://localhost:8081
+        run: newman run postman/collection.json --env-var baseUrl=http://localhost:8081 --reporters cli --verbose
+
+      - name: Show logs if failed
+        if: failure()
+        run: cat app.logan/collection.json --env-var baseUrl=http://localhost:8081
