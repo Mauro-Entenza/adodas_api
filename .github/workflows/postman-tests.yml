@@ -1,9 +1,10 @@
-name: Run Postman Tests
+name: Run Postman Integration Tests
 
 on:
   push:
     branches: [ "main", "develop" ]
   pull_request:
+    branches: [ "main", "develop" ]
 
 jobs:
   test:
@@ -20,26 +21,29 @@ jobs:
           java-version: '21'
 
       - name: Build project
-        run: mvn clean package -DskipTests
+        run: mvn clean install -DskipTests
 
       - name: Run API
         run: |
-          nohup java -jar target/*.jar --server.port=8081 > app.log 2>&1 &
+          nohup mvn spring-boot:run > app.log 2>&1 &
           echo $! > app.pid
+          sleep 20
 
-      - name: Wait for API
+      - name: Check API logs
+        run: cat app.log
+
+      - name: Wait for API on 8081
         run: |
-          echo "Waiting for API..."
-          for i in {1..40}; do
-            if curl -fsS http://localhost:8081/services > /dev/null; then
+          echo "Waiting for API on http://localhost:8081..."
+          for i in {1..30}; do
+            if curl -fsS http://localhost:8081/health > /dev/null 2>&1; then
               echo "API is up!"
               exit 0
             fi
             echo "Waiting..."
-            sleep 3
+            sleep 5
           done
           echo "API did not start"
-          cat app.log
           exit 1
 
       - name: Set up Node
