@@ -83,8 +83,35 @@ jobs:
       - name: Install Newman
         run: npm install -g newman
 
+      - name: Create Newman environment
+        run: |
+          cat > postman/environment.json <<EOF
+          {
+            "id": "local-env",
+            "name": "Local",
+            "values": [
+              {
+                "key": "baseUrl",
+                "value": "http://localhost:8081",
+                "enabled": true
+              },
+              {
+                "key": "customerId",
+                "value": "1",
+                "enabled": true
+              },
+              {
+                "key": "serviceId",
+                "value": "",
+                "enabled": true
+              }
+            ],
+            "_postman_variable_scope": "environment"
+          }
+          EOF
+
       - name: Run Postman collection
-        run: newman run postman/collection.json --env-var baseUrl=http://localhost:8081 --reporters cli --verbose
+        run: newman run postman/collection.json -e postman/environment.json --reporters cli --verbose
 
       - name: Show logs if failed
         if: failure()
