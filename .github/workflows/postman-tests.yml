@@ -2,7 +2,7 @@ name: Run Postman Tests
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "develop" ]
   pull_request:
 
 jobs:
@@ -20,11 +20,11 @@ jobs:
           java-version: '21'
 
       - name: Build project
-        run: mvn clean install -DskipTests
+        run: mvn clean package -DskipTests
 
       - name: Run API
         run: |
-          nohup mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dserver.port=8081" > app.log 2>&1 &
+          nohup java -jar target/*.jar --server.port=8081 > app.log 2>&1 &
           echo $! > app.pid
 
       - name: Wait for API
@@ -45,7 +45,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
 
       - name: Install Newman
         run: npm install -g newman
