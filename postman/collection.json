@@ -20,7 +20,6 @@
                   "script": {
                     "exec": [
                       "const json = pm.response.json();",
-                      "",
                       "const req = JSON.parse(pm.request.body.raw);",
                       "",
                       "pm.test('Status is 2xx', () => {",
@@ -46,7 +45,9 @@
                       "    pm.expect(json.active).to.eql(req.active);",
                       "    pm.expect(json.availableFrom).to.eql(req.availableFrom);",
                       "    pm.expect(json.availableTo).to.eql(req.availableTo);",
-                      "});"
+                      "});",
+                      "",
+                      "pm.collectionVariables.set('serviceId', json.id);"
                     ],
                     "type": "text/javascript",
                     "packages": {},
@@ -69,7 +70,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\"name\": \"Limpieza\", \"description\": \"Servicio de limpieza\", \"price\": 100.0, \"active\": false, \"customerId\":\"1\", \"availableFrom\": \"2026-04-01\",\r\n\"availableTo\": \"2026-12-31\"}"
+                  "raw": "{\"name\": \"Limpieza\", \"description\": \"Servicio de limpieza\", \"price\": 100.0, \"active\": false, \"customerId\": \"{{customerId}}\", \"availableFrom\": \"2026-04-01\", \"availableTo\": \"2026-12-31\"}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/services",
@@ -140,7 +141,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\"name\": null, \"description\": \"Sin nombre\", \"price\": 10.0, \"active\": true}"
+                  "raw": "{\"name\": null, \"description\": \"Sin nombre\", \"price\": 10.0, \"active\": true, \"customerId\": \"{{customerId}}\"}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/services",
@@ -188,10 +189,12 @@
                       "});",
                       "",
                       "pm.test('Values updated correctly', () => {",
-                      "    pm.expect(json.name).to.eql(\"Limpieza\");",
-                      "    pm.expect(json.description).to.eql(\"Servicio de limpieza\");",
+                      "    pm.expect(json.name).to.eql('Limpieza');",
+                      "    pm.expect(json.description).to.eql('Servicio de limpieza');",
                       "    pm.expect(json.price).to.eql(10.0);",
-                      "});"
+                      "});",
+                      "",
+                      "pm.collectionVariables.set('serviceId', json.id);"
                     ],
                     "type": "text/javascript",
                     "packages": {},
@@ -225,16 +228,16 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\"name\": \"Limpieza\", \"description\": \"Servicio de limpieza\", \"price\": 10.0, \"customerId\":\"1\", \"availableFrom\": \"2027-04-01\",\r\n\"availableTo\": \"2029-12-31\"}"
+                  "raw": "{\"name\": \"Limpieza\", \"description\": \"Servicio de limpieza\", \"price\": 10.0, \"customerId\": \"{{customerId}}\", \"availableFrom\": \"2027-04-01\", \"availableTo\": \"2029-12-31\"}"
                 },
                 "url": {
-                  "raw": "{{baseUrl}}/services/15",
+                  "raw": "{{baseUrl}}/services/{{serviceId}}",
                   "host": [
                     "{{baseUrl}}"
                   ],
                   "path": [
                     "services",
-                    "15"
+                    "{{serviceId}}"
                   ]
                 }
               },
@@ -297,7 +300,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\"name\": null, \"description\": \"Sin nombre\", \"price\": 10.0, \"active\": true}"
+                  "raw": "{\"name\": null, \"description\": \"Sin nombre\", \"price\": 10.0, \"active\": true, \"customerId\": \"{{customerId}}\"}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/services/999999",
@@ -367,13 +370,13 @@
                   }
                 ],
                 "url": {
-                  "raw": "{{baseUrl}}/services/4",
+                  "raw": "{{baseUrl}}/services/{{serviceId}}",
                   "host": [
                     "{{baseUrl}}"
                   ],
                   "path": [
                     "services",
-                    "4"
+                    "{{serviceId}}"
                   ]
                 }
               },
@@ -391,11 +394,12 @@
                   "listen": "test",
                   "script": {
                     "exec": [
+                      "const json = pm.response.json();",
+                      "",
                       "pm.test('Status is 4xx', () => pm.response.code >= 400 && pm.response.code < 500);",
                       "pm.test('Response time < 2000ms', () => pm.response.responseTime < 2000);",
                       "pm.test('Body is JSON', () => { try { pm.response.json(); pm.expect(true).to.be.true; } catch(e){ pm.expect.fail('Not JSON'); } });",
                       "pm.test('404', ()=> pm.expect(pm.response.code).to.eql(404));",
-                      "const json = pm.response.json();",
                       "",
                       "pm.test('Error structure is correct', () => {",
                       "    pm.expect(json).to.have.property('code');",
@@ -547,11 +551,6 @@
                   {
                     "key": "Content-Type",
                     "value": "application/json"
-                  },
-                  {
-                    "key": "valid",
-                    "value": "false",
-                    "type": "text"
                   }
                 ],
                 "url": {
@@ -560,8 +559,7 @@
                     "{{baseUrl}}"
                   ],
                   "path": [
-                    "services",
-                    ""
+                    "services"
                   ]
                 }
               },
