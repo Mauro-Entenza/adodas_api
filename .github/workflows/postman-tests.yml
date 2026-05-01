@@ -61,17 +61,18 @@ jobs:
 
       - name: Wait for API on 8081
         run: |
-          echo "Waiting for API on http://localhost:8081..."
-          for i in {1..30}; do
-            if curl -fsS http://localhost:8081/actuator/health > /dev/null 2>&1; then
+          echo "Waiting for API on http://127.0.0.1:8081..."
+          for i in {1..60}; do
+            if curl -fsS http://127.0.0.1:8081/ > /dev/null; then
               echo "API is up!"
               exit 0
             fi
             echo "Waiting..."
-            sleep 5
+            sleep 2
           done
           echo "API did not start"
-          cat app.log
+          echo "=== app.log ==="
+          cat app.log || true
           exit 1
 
       - name: Set up Node
