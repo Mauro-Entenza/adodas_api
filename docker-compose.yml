@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  mariadb:
+    image: mariadb:10.11
+    container_name: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: adodas
+      MYSQL_DATABASE: adodas
+    ports:
+      - "3306:3306"
+    restart: unless-stopped
