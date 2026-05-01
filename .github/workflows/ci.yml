@@ -39,6 +39,7 @@ jobs:
         env:
           PORT: ${{ job.services.mariadb.ports[3306] }}
         run: |
+          echo "MariaDB host port: $PORT"
           for i in {1..30}; do
             if mysqladmin ping -h 127.0.0.1 -P "$PORT" -uroot -padodas --silent; then
               echo "MariaDB is ready"
@@ -55,3 +56,21 @@ jobs:
 
       - name: Start app
         run: mvn spring-boot:run -Dspring-boot.run.profiles=dev
+
+      - name: Wait for app
+        run: |
+          echo "Waiting for API on http://127.0.0.1:8081..."
+          for i in {1..60}; do
+            if curl -fsS http://127.0.0.1:8081/ > /dev/null; then
+              echo "API is ready"
+              exit 0
+            fi
+            echo "Waiting..."
+            sleep 2
+          done
+          echo "App did not start"
+          exit 1
+
+      - name: Run Postman tests
+        run: |
+          npx newman run postman/collection.json --environment postman/dev.postman_environment.json
