@@ -1,0 +1,22 @@
+{
+  "id": "local-env",
+  "name": "Local",
+  "values": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8081",
+      "enabled": true
+    },
+    {
+      "key": "customerId",
+      "value": "1",
+      "enabled": true
+    },
+    {
+      "key": "serviceId",
+      "value": "",
+      "enabled": true
+    }
+  ],
+  "_postman_variable_scope": "environment"
+}
