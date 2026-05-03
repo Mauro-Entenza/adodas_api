@@ -1,10 +1,10 @@
-name: Run Postman Integration Tests
+name: Spring Boot CI
 
 on:
   push:
-    branches: [ "main", "develop" ]
+    branches:
+      - develop
   pull_request:
-    branches: [ "main", "develop" ]
 
 jobs:
   test:
@@ -25,67 +25,53 @@ jobs:
           --health-retries=20
 
     steps:
-      - name: Checkout repo
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Java
+      - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '21'
+          java-version: 21
           cache: maven
 
-      - name: Build project
-        run: mvn clean install -DskipTests
-
       - name: Wait for MariaDB
+        env:
+          PORT: ${{ job.services.mariadb.ports[3306] }}
         run: |
+          echo "MariaDB host port: $PORT"
           for i in {1..30}; do
-            if mysqladmin ping -h 127.0.0.1 -P 3306 -uroot -padodas --silent; then
-              echo "MariaDB is ready!"
+            if mysqladmin ping -h 127.0.0.1 -P "$PORT" -uroot -padodas --silent; then
+              echo "MariaDB is ready"
               exit 0
             fi
             echo "Waiting for MariaDB..."
             sleep 2
           done
-          echo "MariaDB did not start"
+          echo "MariaDB did not become ready"
           exit 1
+
+      - name: Build
+        run: mvn -B clean package -DskipTests
 
       - name: Start app
         run: |
-          nohup mvn spring-boot:run -Dspring-boot.run.profiles=dev > app.log 2>&1 &
           nohup mvn spring-boot:run > app.log 2>&1 &
           echo $! > app.pid
-          sleep 20
 
-      - name: Check API logs
-        run: cat app.log
-
-      - name: Check API logs
-        run: cat app.log
-
-      - name: Wait for API on 8081
+      - name: Wait for app
         run: |
           echo "Waiting for API on http://127.0.0.1:8081..."
           for i in {1..60}; do
             if curl -fsS http://127.0.0.1:8081/services > /dev/null; then
-      - name: Wait for API on 8081
-        run: |
-          echo "Waiting for API on http://localhost:8081..."
-          for i in {1..30}; do
-            if curl -fsS http://localhost:8081/health > /dev/null 2>&1; then
-              echo "API is up!"
+              echo "API is ready"
               exit 0
             fi
             echo "Waiting..."
             sleep 2
           done
-          echo "API did not start"
-          echo "=== app.log ==="
+          echo "App did not start"
           cat app.log || true
-            sleep 5
-          done
-          echo "API did not start"
           exit 1
 
       - name: Set up Node
@@ -96,10 +82,10 @@ jobs:
       - name: Install Newman
         run: npm install -g newman
 
-      - name: Run Postman collection
+      - name: Run Postman tests
         run: |
-          newman run postman/collection.json \
-            --env-var baseUrl=http://localhost:8081 \
+          npx newman run postman/collection.json \
+            --env-var baseUrl=http://127.0.0.1:8081 \
             --env-var customerId=1 \
             --reporters cli \
             --verbose
