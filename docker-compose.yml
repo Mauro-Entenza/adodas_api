@@ -1,19 +1,34 @@
+name: myapi-mariadb
+
 services:
   mariadb:
     image: mariadb:10.11
     container_name: mariadb
-    environment:
-      MYSQL_ROOT_PASSWORD: adodas
-      MYSQL_DATABASE: adodas
-    ports:
-      - "3306:3306"
     restart: unless-stopped
-
-  api:
-    build: .
-    container_name: adodas-api
+    env_file: ./.env
     ports:
-      - "8080:8080"
+      - "${MARIADB_PORT}:${MARIADB_PORT}"
+    volumes:
+      - db:/var/lib/mysql
+
+  app:
+    image: myapi
+    container_name: myapi
+    env_file: ./.env
+    ports:
+      - "${SPRING_PORT}:${SPRING_PORT}"
+    environment:
+      SPRING_APPLICATION_JSON: >
+        {
+          "spring.datasource.url":"jdbc:mariadb://${MARIADB_HOST}:${MARIADB_PORT}/${MARIADB_DATABASE}",
+          "spring.datasource.username":"${MARIADB_USERNAME}",
+          "spring.datasource.password":"${MARIADB_PASSWORD}",
+          "spring.jpa.hibernate.ddl-auto":"update",
+          "spring.jpa.database-platform":"org.hibernate.dialect.MariaDBDialect"
+        }
     depends_on:
       - mariadb
-    restart: unless-stopped
+    restart: on-failure
+
+volumes:
+  db:
