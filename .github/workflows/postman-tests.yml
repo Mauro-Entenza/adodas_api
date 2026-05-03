@@ -10,6 +10,20 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    services:
+      mariadb:
+        image: mariadb:10.11
+        env:
+          MARIADB_ROOT_PASSWORD: adodas
+          MARIADB_DATABASE: adodas
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mariadb-admin ping -h 127.0.0.1 -uroot -padodas --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=20
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -19,31 +33,46 @@ jobs:
         with:
           distribution: temurin
           java-version: '21'
+          cache: maven
 
       - name: Build project
         run: mvn clean install -DskipTests
 
-      - name: Run API
+      - name: Wait for MariaDB
         run: |
-          nohup mvn spring-boot:run > app.log 2>&1 &
+          for i in {1..30}; do
+            if mysqladmin ping -h 127.0.0.1 -P 3306 -uroot -padodas --silent; then
+              echo "MariaDB is ready!"
+              exit 0
+            fi
+            echo "Waiting for MariaDB..."
+            sleep 2
+          done
+          echo "MariaDB did not start"
+          exit 1
+
+      - name: Start app
+        run: |
+          nohup mvn spring-boot:run -Dspring-boot.run.profiles=dev > app.log 2>&1 &
           echo $! > app.pid
-          sleep 20
 
       - name: Check API logs
         run: cat app.log
 
       - name: Wait for API on 8081
         run: |
-          echo "Waiting for API on http://localhost:8081..."
-          for i in {1..30}; do
-            if curl -fsS http://localhost:8081/health > /dev/null 2>&1; then
+          echo "Waiting for API on http://127.0.0.1:8081..."
+          for i in {1..60}; do
+            if curl -fsS http://127.0.0.1:8081/services > /dev/null; then
               echo "API is up!"
               exit 0
             fi
             echo "Waiting..."
-            sleep 5
+            sleep 2
           done
           echo "API did not start"
+          echo "=== app.log ==="
+          cat app.log || true
           exit 1
 
       - name: Set up Node
@@ -55,7 +84,12 @@ jobs:
         run: npm install -g newman
 
       - name: Run Postman collection
-        run: newman run postman/collection.json --env-var baseUrl=http://localhost:8081 --reporters cli --verbose
+        run: |
+          newman run postman/collection.json \
+            --env-var baseUrl=http://localhost:8081 \
+            --env-var customerId=1 \
+            --reporters cli \
+            --verbose
 
       - name: Show logs if failed
         if: failure()
